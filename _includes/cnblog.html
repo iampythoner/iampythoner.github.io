@@ -1,15 +1,15 @@
 <script  type="text/javascript">
-function fold(curTag,title){    
+function fold(curTag,title){
     var oldText = curTag.innerText;
     var div = document.getElementById(title);
     if(div.style.display=="inline"){
         div.style.display="none"
-        var newText = "+"+oldText.substring(1,oldText.length);      
+        var newText = "+"+oldText.substring(1,oldText.length);
     }else{
         div.style.display="inline"
         var newText = "-"+oldText.substring(1,oldText.length);
     }
-    curTag.innerText = newText; 
+    curTag.innerText = newText;
 }
 </script>
 <!--highlight.js-->
@@ -169,7 +169,7 @@ blockquote p {
     color: green;
 }
 /*字符串*/
-.str { 
+.str {
     color: #a31515;
 }
 .lit {
@@ -262,6 +262,32 @@ blockquote p {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
     line-height: 1.5;
+}
+
+/*2017-09-11 add*/
+.highlight .kn {
+    font-weight: normal !important;
+}
+
+.highlight .nn {
+    font-weight: normal !important;
+}
+
+.highlight .k {
+    color: #aa0d91;
+    font-weight: normal !important;
+}
+
+.highlight .ow {
+    font-weight: normal !important;
+}
+
+.highlight .c {
+    font-style: normal !important;
+}
+
+.highlight .nc {
+    font-weight: normal !important;
 }
 
 </style>

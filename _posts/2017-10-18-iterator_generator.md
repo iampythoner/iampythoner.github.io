@@ -6,9 +6,9 @@ categories: Python
 ---
 
 ##### 可迭代对象
-可迭代对象是是这样一类对象
-表象：可以使用for-in语句进行遍历，如list tuple dict set str等类型的对象
-在本质上：可迭代对象是实现了Iterable接口的实例，而Iterable中定义了可迭代对象协议的方法:\_\_iter\_\_，也就是说只要是实现了\_\_iter\_\_方法的类实例都是可迭代对象，在Python中Iterable定义为：
+可迭代对象是是这样一类对象<br/>
+表象：可以使用for-in语句进行遍历，如list tuple dict set str等类型的对象<br/>
+在本质上：可迭代对象是`实现了Iterable协议(或者说接口)的实例`，而Iterable中定义了可迭代对象协议的方法:\_\_iter\_\_。也就是说只要是实现了\_\_iter\_\_方法的类实例都是可迭代对象，在Python中Iterable定义为：
 
 ```python
 class Iterable(metaclass=ABCMeta):
@@ -30,10 +30,15 @@ class Iterable(metaclass=ABCMeta):
 它本身就是一个抽象类、或者说是一个接口，在Python中没有像Java那样显式遵守一个接口的语法, 如
 
 ```java
-class ConcreteClass implements Iterable{}
+class ConcreteClass implements Iterable {
+    @Override
+    public Iterator iterator() {
+        // ........
+    }
+}
 ```
-Python中若遵守了一个接口或者协议，只需要实现接口中定义的抽象方法就可以隐式遵守，只要遵守了，便可使用isinstance(子类对象, 接口)或者issubclass(子类, 接口)这两种方式检测对象(类)是否遵守了协议，而这个过程实际上是这样实现的
-isinstance(子类对象, 接口)会调用issubclass(type(子类对象), 接口)
+Python中若遵守了一个接口或者协议，只需要实现接口中定义的抽象方法就可以`隐式遵守`，只要遵守了，便可使用`isinstance(子类对象, 协议)`或者`issubclass(子类, 协议)`这两种方式检测对象(类)是否遵守了协议。而这个过程实际上是这样实现的：<br/>
+isinstance(子类对象, 接口)会调用issubclass(type(子类对象), 接口)<br/>
 而issubclass(子类, 接口(或父类))方法会返回接口(或父类)的\_\_subclasshook\_\_方法值。
 
 如上面的Iterable接口，只是简单地判断了类型是否实现了\_\_iter\_\_方法，例如：
@@ -60,11 +65,12 @@ def __next__(self):
     'Return the next item from the iterator. When exhausted, raise StopIteration'
     raise StopIteration
 ```
-可见在迭代器本身进行迭代的数据源就是本身，而\_\_next\_\_方法是一个从数据源中取下一个值的过程方法，并且在实现它的时候要注意当迭代完毕的时候要抛出一个StopIteration异常，意味着停止迭代，for-in循环在内部的处理过程就是使用这个异常停止迭代的。
+可见在迭代器本身进行迭代的数据源就是本身，而`__next__`方法是一个从数据源中取下一个值的过程方法，并且在实现它的时候要注意当迭代完毕的时候要抛出一个StopIteration异常，意味着停止迭代。for-in循环在内部的处理过程就是使用这个异常停止迭代的。
 
-Python内置的next()函数实际上是对参数对象调用了\_\_next\_\_方法，因此这个方法的参数必须是一个迭代器。
+Python内置的`next()`函数实际上是对参数对象调用了`__next__`方法，因此`next()`函数的参数必须是一个迭代器。
 
-Python内置iter函数可以将“可迭代对象”转为“迭代器对象”，这个方法有点像工厂方法，但实际上是直接调用了参数的\_\_iter\_\_方法，如iter([1, 2]) 其实相当于 [1, 2].\_\_iter\_\_():
+Python内置`iter()`函数可以将“可迭代对象”转为“迭代器对象”，这个方法有点像工厂方法，但实际上是直接调用了参数的`__iter__`方法:<br/>
+如`iter([1, 2])`其实相当于`[1, 2].__iter__()`<br/>
 它会根据传入对象的不同，而产生不同的迭代器，这个迭代器对象的地址不是确定的，每次调用都会生成一个新的对象：
 
 ```txt
@@ -96,7 +102,7 @@ while True:
 
 ##### 生成器
 
-生成器是迭代器的子协议,在\_\_iter\_\_、\_\_next\_\_方法的基础上又增加了'send', 'throw', 'close'这三个抽象方法。
+生成器是`迭代器的子协议`,在`__iter__`、`__next__`方法的基础上又增加了`send`, `throw`, `close`这三个抽象方法。
 
 为什么要引入生成器的概念：如果有这样一个需求，创建一个有1_0000_0000个元素的集合，如果使用list来实现，那么这个list占用了大量的内存资源，而且每个元素生成后不会立即释放，这样长期放置在内存中着实浪费。生成器已经不再使用具体集合类型作为数据源，它创建元素和取元素都是动态进行的，这样以`以计算性能换取空间性能`，而且大部分情况下生成值的计算方法都是非常高效的，极大地提升了程序的性能。
 
@@ -128,7 +134,7 @@ for value in fibo:
     print(value) # 1 1 2 3 5
 ```
 
-方法③：自定义生成器子类,与创建自定义的迭代器类的方式相同，只需要重写\_\_next\_\_方法实现值的生成规则即可，与实现自定义迭代器子类增多的工作是：需要重写另外两个抽象方法send()和throw()。
+方法③：自定义生成器子类,与创建自定义的迭代器类的方式相同，只需要重写`__next__`方法实现值的生成规则即可，与实现自定义迭代器子类增多的工作是：需要重写另外两个抽象方法send()和throw()。
 
 ```python
 class FibonacciGenerator(Generator):

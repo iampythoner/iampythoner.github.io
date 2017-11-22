@@ -119,6 +119,14 @@ export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
 source /Library/Frameworks/Python.framework/Versions/3.6/bin/virtualenvwrapper.sh
 ```
+如果使用的是Linux，~/.bashrc应该是这样配置的：
+
+```sh
+export WORKON_HOME=~/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source ~/.local/bin/virtualenvwrapper.sh
+```
+
 3.载入刚刚添加的环境
 
 ```sh

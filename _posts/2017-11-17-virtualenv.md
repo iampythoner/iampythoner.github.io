@@ -130,7 +130,10 @@ source ~/.local/bin/virtualenvwrapper.sh
 3.载入刚刚添加的环境
 
 ```sh
+# Mac
 source ~/.bash_profile
+# Linux
+source ~/.bashrc
 ```
 
 这样virtualenvwrapper便可以使用了。下面是几个常用的操作：

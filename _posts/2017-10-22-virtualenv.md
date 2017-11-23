@@ -1,7 +1,7 @@
 ---
 layout: cnblog_post
 title:  "pyenv、virtualenv、virtualenvwrapper"
-date:   2017-10-18 06:34:39
+date:   2017-10-22 06:34:39
 categories: Python
 ---
 

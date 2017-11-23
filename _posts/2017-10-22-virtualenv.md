@@ -101,7 +101,8 @@ virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境,�
 安装virtaulenvwrapper：(使用了系统默认pip)
 
 ```sh
-pip3 install virtaulenvwrapper
+# 安装之前必须确保已经安装了virtualenv
+pip3 install virtaulenvwrapper # Linux 需要使用sudo 
 ```
 
 在使用virtualenvwrapper之前，需要进行以下操作：
@@ -123,8 +124,8 @@ source /Library/Frameworks/Python.framework/Versions/3.6/bin/virtualenvwrapper.s
 
 ```sh
 export WORKON_HOME=~/.virtualenvs
-VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source ~/.local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh # 具体位置可通过which查找
 ```
 
 3.载入刚刚添加的环境

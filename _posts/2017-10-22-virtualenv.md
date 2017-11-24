@@ -120,6 +120,7 @@ export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
 source /Library/Frameworks/Python.framework/Versions/3.6/bin/virtualenvwrapper.sh
 ```
+<a id='Linux_env'></a>
 如果使用的是Linux，~/.bashrc应该是这样配置的：
 
 ```sh

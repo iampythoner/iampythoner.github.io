@@ -35,7 +35,7 @@ ntpdate asia.pool.ntp.org
 ----安装git
 sudo yum install git
 
-----安装zlib即必要的库
+----安装zlib
 yum install zlib zlib-devel -y
 
 ----安装openssl

@@ -60,13 +60,11 @@ pip3 -V
 
 ## 如果出现这个错误
 python3: error while loading shared libraries: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
-----方法1
+# 这样解决
 cd  /etc/ld.so.conf.d
 vim usr_local_lib.conf
 /usr/local/lib
 ldconfig
----方法2
-logout再重新登录
 
 ----安装最新vim的准备
 # 移除现有的vim

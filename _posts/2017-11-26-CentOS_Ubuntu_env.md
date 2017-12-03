@@ -120,8 +120,8 @@ rpm -e --nodeps xxxxxx
 # 下载地址 https://dev.mysql.com/downloads/mysql/
 # 顺序一个都不能错
 wget -nd https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.20-1.el7.x86_64.rpm-bundle.tar
-mkdir mysql-rmp-dir
-tar -xf mysql-5.7.20-1.el7.x86_64.rpm-bundle.tar -C mysql-rmp-dir
+mkdir mysql-rpm-dir
+tar -xf mysql-5.7.20-1.el7.x86_64.rpm-bundle.tar -C mysql-rpm-dir
 yum install net-tools
 rpm -ivh mysql-community-common-5.7.20-1.el7.x86_64.rpm
 rpm -ivh mysql-community-libs-5.7.20-1.el7.x86_64.rpm
@@ -258,6 +258,15 @@ which uwsgi # 输出/usr/local/bin/uwsgi
 
 ----安装nginx
 sudo apt install nginx
+--常用命令
+# 启动服务
+sudo service nginx start
+# 关闭
+sudo nginx -s stop
+# 重启
+sudo nginx -s reopen
+# 重新加载配置文件
+sudo ngixn -s reload
 
 -----node.js环境安装
 # 最好安装绿色版，node更新太频繁，可以将不同的版本放在同一目录下，使用软链接切换
@@ -279,9 +288,16 @@ source ~/.bashrc # 如果使用的是zsh，则source ~/.zshrc
 node -v
 下次使用其他版本的node，只需要将current_node 链接到新的版本即可
 
+-----redis安装
+cd ~/Documents/lib
+wget -nd http://download.redis.io/releases/redis-4.0.4.tar.gz
+tar -zxf redis-4.0.4.tar.gz
+cd redis-4.0.4/src
+make
+sudo make install
+
 -----后续还要添加的
 supervisor安装及配置
-redis基本配置
 mongo基本配置
 
 -------------------GUI Application-----------------------

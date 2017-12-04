@@ -4,6 +4,16 @@ title:  "pyenv、virtualenv、virtualenvwrapper"
 date:   2017-10-22 06:34:39
 categories: Python
 ---
+<!--Category-->
+<div id="navCategory">
+    <b>本文目录</b>
+	<ul>
+		<li><a href="#anchor1_0">pyenv</a></li>
+        <li><a href="#anchor2_0">virtualenv和virtualwrapper</a></li>
+        <li><a href="#anchor3_0">virtaulenvwrapper</a></li>
+        <li><a href="#anchor4_0">Python官方的venv</a></li>
+	</ul>
+</div><br>
 
 <h3 id="anchor1_0">pyenv</h3>
 pyenv最大的优势是：可以在"全局"管理不同版本的Python,
@@ -161,3 +171,28 @@ rmvirtualenv # 删除虚拟环境
 ```
 workon pure3_5
 ```
+
+<h3 id="anchor4_0">Python官方的venv</h3>
+
+Python3.3 开始推出了venv模块，官方地址为[https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html)，这个模块的api可以帮助你创建虚拟环境，它的使用方式和virtualenv基本相同，同时在解释器被安装时就增加了可执行接口，如Python3.6解释器安装时，提供了系统命令venv，源码如下：
+
+```python
+#!/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6
+if __name__ == '__main__':
+    import sys
+    import pathlib
+
+    executable = pathlib.Path(sys.executable or 'python3').name
+    print('WARNING: the pyenv script is deprecated in favour of '
+          f'`{executable} -m venv`', file=sys.stderr)
+
+    rc = 1
+    try:
+        import venv
+        venv.main()
+        rc = 0
+    except Exception as e:
+        print('Error: %s' % e, file=sys.stderr)
+    sys.exit(rc)
+```
+不过目前来说这个模块以及相关命令的使用较少，virtualenv和virtualenvwrapper的配合使用是相当方便的。

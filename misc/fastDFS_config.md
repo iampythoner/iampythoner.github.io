@@ -112,6 +112,8 @@ cd nginx-1.10.3
 ```
 # configure
 sudo ./configure --prefix=/usr/local/nginx --add-module=/home/mike/Documents/lib/fastdfs/fastdfs-nginx-module/src
+# 如果你的电脑上本来就是编译安装了nginx，可以直接使用下面的方式增加module， 具体参照https://github.com/happyfish100/fastdfs-nginx-module/blob/master/INSTALL
+# ./configure --add-module=/home/mike/Documents/lib/fastdfs/fastdfs-nginx-module/src
 ```
 
 然后生成了 objs文件夹，里面是编译和安装的配置文件，同时生成了Makefile文件，配置成功出现下面的内容

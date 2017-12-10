@@ -10,6 +10,7 @@ permalink: /misc/
     <li><a target='blank' href='/misc/nginx_cnfig'>nginx常用的配置目录</a></li>
     <li><a target='blank' href='/misc/python_blog'>python_blog</a></li>
     <li><a target='blank' href='/misc/useful_command'>非常有用的命令</a></li>
+    <li><a target='blank' href='/misc/ubuntu_desktop_app'>ubuntu桌面程序图标</a></li>
     <li><a target='blank' href='/misc/current_vimrc'>目前使用的.vimrc</a></li>
     <li><a target='blank' href='/misc/change_username'>更改Ubuntu用户名、登录名、组名</a></li>
 </ul>

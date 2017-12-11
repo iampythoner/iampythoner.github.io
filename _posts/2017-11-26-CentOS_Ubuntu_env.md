@@ -231,6 +231,22 @@ source ~/.bashrc
 # 添加上面一句之后保存退出，然后让新的zsh配置生效
 source ~/.zshrc
 
+----为zsh配置powerline系列主题
+# 可以到 https://github.com/robbyrussell/oh-my-zsh/wiki/Themes 和 https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes查看主题和扩展主题
+# 下载powerline字体 https://github.com/powerline/fonts
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+./install.sh
+cd ..
+rm -rf fonts
+# 我比较喜欢Bullet train这个主 https://github.com/caiogondim/bullet-train.zsh
+cd /Users/Mike/.oh-my-zsh/themes
+wget -nd https://github.com/caiogondim/bullet-train.zsh
+vim ~/.zshrc
+ZSH_THEME="bullet-train"
+# 250 197 113
+
+
 ----SSH基本配置
 # 安装ssh-server,安装完成之后服务自动开启
 sudo apt install openssh-server

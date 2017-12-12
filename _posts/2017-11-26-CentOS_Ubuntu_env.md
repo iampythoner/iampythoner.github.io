@@ -241,7 +241,7 @@ cd ..
 rm -rf fonts
 # 我比较喜欢Bullet train这个主 https://github.com/caiogondim/bullet-train.zsh
 cd /Users/Mike/.oh-my-zsh/themes
-wget -nd https://github.com/caiogondim/bullet-train.zsh
+wget -nd https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
 vim ~/.zshrc
 ZSH_THEME="bullet-train"
 # 250 197 113

@@ -54,9 +54,9 @@ class GoodsSKUIndex(indexes.SearchIndex, indexes.Indexable):
 在templates下面新建目录search/indexes/{{ app.name }} 在此目录下面新建一个文件goodssku_text.txt(lower(model_name)_text.txt)，在该文件中指定索引搜索的属性：
 
 ```txt
-{{ object.name }}
-{{ object.desc }}
-{{ object.goods.detail }}
+{{ '{{' }} object.name }}
+{{ '{{' }} object.desc }}
+{{ '{{' }} object.goods.detail }}
 ```
 
 4.使用命令生成索引文件
@@ -82,10 +82,10 @@ example.com/search?q=haha&page=1
 
 3.模板处理
 
-在templates/search目录下创建search.html
-在模板中可以使用这几个对象：
-query：搜索关键字
-page：当前页的page对象 –>遍历page对象，获取到的是SearchResult类的实例对象，对象的属性object才是模型类的对象。
+在templates/search目录下创建search.html<br>
+在模板中可以使用这几个对象：<br>
+query：搜索关键字<br>
+page：当前页的page对象 –>遍历page对象，获取到的是SearchResult类的实例对象，对象的属性object才是模型类的对象。<br>
 paginator：分页paginator对象
 
 

@@ -1,3 +1,11 @@
+---
+permalink: /misc/django-haystack+whoosh+jiaba
+layout: cnblog_post
+title:  'django使用haystack、whoosh、jieba'
+date:   2017-12-06 06:34:39
+categories: misc
+---
+
 ### django 项目配置haystack和whoosh
 
 1.安装haystack和whoosh

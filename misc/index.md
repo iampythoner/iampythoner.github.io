@@ -6,6 +6,7 @@ permalink: /misc/
 
 <!-- directory_listing Further reading: -->
 <ul style='font-size:16px;'>
+    <li><a target='blank' href='/misc/django-haystack+whoosh+jiaba'>django使用haystack、whoosh、jieba</a></li>
     <li><a target='blank' href='/misc/fastDFS_cnfig'>fastDFS配置</a></li>
     <li><a target='blank' href='/misc/nginx_cnfig'>nginx常用的配置目录</a></li>
     <li><a target='blank' href='/misc/python_blog'>python_blog</a></li>

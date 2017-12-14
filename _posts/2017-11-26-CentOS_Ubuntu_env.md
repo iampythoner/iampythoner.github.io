@@ -282,7 +282,7 @@ sudo nginx -s stop
 # 重启
 sudo nginx -s reopen
 # 重新加载配置文件
-sudo ngixn -s reload
+sudo nginx -s reload
 
 -----node.js环境安装
 # 最好安装绿色版，node更新太频繁，可以将不同的版本放在同一目录下，使用软链接切换

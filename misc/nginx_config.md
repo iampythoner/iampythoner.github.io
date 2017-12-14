@@ -36,7 +36,8 @@ brew install nginx
 ```
 
 最建议编译安装：ubuntu和mac都可以使用这种方式<br>
-ubuntu:
+
+##### ubuntu编译安装:
 
 ```
 # 安装依赖项
@@ -61,6 +62,7 @@ sudo make
 sudo make install 
 ```
 
+##### mac编译安装:
 
 准备三方库源码
 

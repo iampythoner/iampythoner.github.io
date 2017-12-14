@@ -1,7 +1,7 @@
 ---
 permalink: /misc/nginx_cnfig
 layout: cnblog_post
-title:  'nginx常用的配置目录'
+title:  'nginx安装和配置'
 date:   2017-10-19 06:34:39
 categories: misc
 ---
@@ -82,7 +82,24 @@ sudo make
 sudo make install
 ```
 
-mac 上的openssl老是编译失败，最终还是使用了brew安装。
+mac 上的pcre老是编译失败，最终还是使用了brew安装。
 
 
 编译安装的好处在于可以再次编译增加模块，同时如果想卸载只需删除`/usr/local/nginx`文件夹即可。
+
+brew 安装之后的常用目录为:
+
+```
+Docroot is: /usr/local/var/www
+
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+
+nginx will load all files in /usr/local/etc/nginx/servers/.
+
+To have launchd start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  nginx
+```
+

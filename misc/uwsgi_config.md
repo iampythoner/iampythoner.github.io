@@ -6,8 +6,28 @@ date:   2017-10-19 06:34:39
 categories: misc
 ---
 
-### 安装
-##### mac
+<!--Category-->
+<div id="navCategory">
+    <strong>本文目录</strong>
+    <ul>
+        <li><a href="#anchor1_0">安装</a>
+            <ul>
+                <li><a href="#anchor1_1">mac</a></li>
+                <li><a href="#anchor1_2">ubuntu</a></li>
+            </ul>
+        </li>
+        <li><a href="#anchor2_0">基本配置和使用</a>
+            <ul>
+                <li><a href="#anchor2_1">mac 下的配置项</a></li>
+                <li><a href="#anchor2_2">ubuntu 下的配置项</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!--Category结束-->
+
+<h3 id="anchor1_0">安装</h3>
+<h5 id="anchor1_1">mac</h5>
 编译安装
 
 ```
@@ -30,7 +50,15 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 brew install uwsgi
 ```
 
-### 基本配置和使用
+<h5 id="anchor1_2">ubuntu</h5>
+ubuntu上安装非常简单，进入虚拟环境使用pip安装即可
+
+```
+workon xxx
+pip install uwsgi
+```
+
+<h3 id="anchor2_0">基本配置和使用</h3>
 
 使用配置文件启动
 
@@ -44,9 +72,10 @@ uwsgi --ini uwsgi.ini # 或 uwsgi uwsgi.ini
 uwsgi --stop uwsgi.pid
 ```
 
-#### mac 下的配置项，这里使用brew安装的
+<h4 id="anchor2_1">mac 下的配置项，这里使用brew安装的</h4>
 大部分配置项都没有太多注意的点，需要注意的是`plugin`选项和请求处理相关的选项如`http`、`http-socket`、`protocol`
 不使用nginx，uwsgi直接负责处理Web请求：
+
 ```
 [uwsgi]
 # 方法①http
@@ -152,7 +181,7 @@ http {
 ```
 现在可以直接使用127.0.0.1访问了。
 
-##### django 静态文件搜集
+<h5 id="anchor2_1_1">django 静态文件搜集</h5>
 ```
 sudo ./manage.py collectstatic
 ```
@@ -172,7 +201,7 @@ location /static {
 # ...
 ```
 
-##### nginx 负载均衡
+<h5 id="anchor2_1_2">nginx 负载均衡</h5>
 可以在本机或者其他主机多启动几个uwsgi，对处理的请求进行分别处理，如果想以本机进行测试，可以使用多个端口，新增uwsgi服务的配置项为：
 
 ```
@@ -209,7 +238,7 @@ http {
 }
 ```
 
-#### ubuntu 下配置，在虚拟环境中使用pip安装的uwsgi
+<h4 id="anchor2_2">ubuntu 下的配置项，在虚拟环境中使用pip安装的uwsgi</h4>
 
 在不使用nginx的情况下：
 上面提到的方法①②③都是可以直接使用的，而且不要额外添加python plugin,

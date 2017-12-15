@@ -103,3 +103,32 @@ Or, if you don't want/need a background service you can just run:
   nginx
 ```
 
+### 基本操作
+
+```
+#启动
+sudo nginx
+```
+mac如果使用brew安装，初次启动的时候会有这个错误：
+
+```
+nginx: [emerg] open() "/usr/local/Cellar/nginx/1.12.2_1/logs/error.log" failed (2: No such file or directory)
+```
+
+只需到`/usr/local/Cellar/nginx/1.12.2_1/`目录新建logs目录和error.log即可
+
+```
+cd /usr/local/Cellar/nginx/1.12.2_1
+mkdir logs && cd logs
+touch error.log
+```
+
+##### 请求转发
+
+```
+# 将匹配的请求转发到ip为`xxx.xxx.xxx.xxx`主机上上的`port`端口处理
+location = / {
+	proxy_pass http://xxx.xxx.xxx.xxx:port;
+}
+```
+

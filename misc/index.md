@@ -6,6 +6,7 @@ permalink: /misc/
 
 <!-- directory_listing Further reading: -->
 <ul style='font-size:16px;'>
+    <li><a target='blank' href='/misc/clang_gcc_compile_c_cpp'>clang、gcc编译c、cpp</a></li>
     <li><a target='blank' href='/misc/django-haystack+whoosh+jiaba'>django使用haystack、whoosh、jieba</a></li>
     <li><a target='blank' href='/misc/fastDFS_cnfig'>fastDFS配置</a></li>
     <li><a target='blank' href='/misc/uwsgi_cnfig'>uwsgi安装和配置</a></li>

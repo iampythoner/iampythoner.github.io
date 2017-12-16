@@ -6,6 +6,7 @@ permalink: /misc/
 
 <!-- directory_listing Further reading: -->
 <ul style='font-size:16px;'>
+    <li><a target='blank' href='/misc/mysql_config'>MySQL常用配置</a></li>
     <li><a target='blank' href='/misc/clang_gcc_compile_c_m_cpp'>clang、gcc编译c、m、cpp</a></li>
     <li><a target='blank' href='/misc/django-haystack+whoosh+jiaba'>django使用haystack、whoosh、jieba</a></li>
     <li><a target='blank' href='/misc/fastDFS_cnfig'>fastDFS配置</a></li>

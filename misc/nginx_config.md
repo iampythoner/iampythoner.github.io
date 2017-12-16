@@ -103,6 +103,17 @@ Or, if you don't want/need a background service you can just run:
   nginx
 ```
 
+```
+#### 日志目录
+/usr/local/Cellar/nginx/1.12.2_1/logs
+#### 配置文件目录
+/usr/local/etc/nginx
+#### 默认页面目录
+/usr/local/var/www/
+#### bin
+/usr/local/Cellar/nginx/1.12.2_1/bin/nginx
+```
+
 ### 基本操作
 
 ```

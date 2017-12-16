@@ -1,7 +1,7 @@
 ---
-permalink: /misc/clang_gcc_compile_c_cpp
+permalink: /misc/clang_gcc_compile_c_m_cpp
 layout: cnblog_post
-title:  'clang、gcc编译c、cpp'
+title:  'clang、gcc编译c、m、cpp'
 date:   2017-12-07 06:34:39
 categories: misc
 ---

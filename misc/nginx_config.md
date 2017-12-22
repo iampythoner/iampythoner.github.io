@@ -138,6 +138,7 @@ touch error.log
 
 ```
 # 将匹配的请求转发到ip为`xxx.xxx.xxx.xxx`主机上上的`port`端口处理
+# 注意这里需要填写协议
 location = / {
 	proxy_pass http://xxx.xxx.xxx.xxx:port;
 }

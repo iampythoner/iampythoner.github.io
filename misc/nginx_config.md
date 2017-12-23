@@ -39,12 +39,13 @@ brew install nginx
 
 ##### ubuntu编译安装:
 
+<a href="/misc/nginx_error" target='blank'>依赖错误信息</a>
+
 ```
 # 安装依赖项
-sudo apt install libtool
 sudo apt install libpcre3 libpcre3-dev
 sudo apt install zlib1g-dev
-sudo apt install openssl libssl-dev
+sudo apt install libssl-dev
 ```
 安装
 
@@ -55,7 +56,7 @@ tar zxf nginx-1.10.3.tar.gz
 cd nginx-1.10.3
 
 
-sudo ./configure --prefix=/usr/local/nginx 
+sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module
 
 sudo make
 

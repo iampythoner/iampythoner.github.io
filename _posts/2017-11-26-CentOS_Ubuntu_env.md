@@ -109,7 +109,9 @@ cd YouCompleteMe
 git submodule update --init --recursive
 # 不要到clang官网下载clang，也不要自己安装cmake，用下面的命令一次安装gcc-c++编译器、cmake等
 yum install automake gcc gcc-c++ kernel-devel cmake
+# Compiling YCM with semantic support for C-family languages
 python3 install.py --clang-completer
+# 如果要安装所有语言的提示可以使用 ./install.py --all 前提是确保 xbuild, go, tsserver, node, npm, rustc, and cargo tools 都被安装，并且在PATH配置了
 
 ----mysql安装之前卸载mariadb
 rpm -qa | grep mariadb

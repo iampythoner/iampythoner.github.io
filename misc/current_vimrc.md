@@ -171,3 +171,8 @@ map <F3> <leader>ci <CR>
 目前使用的colors，colors/solarized.vim
 
 下载地址: [http://ethanschoonover.com/solarized](http://ethanschoonover.com/solarized) => [https://github.com/altercation/vim-colors-solarized](https://github.com/altercation/vim-colors-solarized)
+
+```
+cd ~/.vim/colors
+wget -nd https://raw.githubusercontent.com/altercation/vim-colors-solarized/master/colors/solarized.vim
+```

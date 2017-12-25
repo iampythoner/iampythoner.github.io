@@ -1,0 +1,14 @@
+---
+layout: index_dir
+title: "/misc/"
+permalink: /misc/
+show: false
+---
+
+<ul style='font-size:16px;'>
+  {% for item in site.misc reversed %}
+    {% if item.show != false %}
+      <li><a target='blank' href="{{ item.url }}">{{ item.title }}</a> &emsp;<span style='color:#009688;'>{{ item.date | date: "%Y-%m-%d" }}</span></li>
+    {% endif %}
+  {% endfor %}
+</ul>

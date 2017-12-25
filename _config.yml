@@ -52,3 +52,9 @@ show_dir_listing: true
 # derectory_listing
 directory_listing_title: "Contents: "
 directory_listing_prefix: "Contents of "
+
+collections:
+  misc:
+    collections_dir: misc
+    output: true
+    permalink: /:collection/:title

@@ -1,5 +1,5 @@
 ---
-permalink: /misc/nginx_cnfig
+permalink: /misc/nginx_config
 layout: cnblog_post
 title:  'nginx安装和配置'
 date:   2017-10-19 06:34:39

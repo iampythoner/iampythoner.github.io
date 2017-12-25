@@ -275,7 +275,7 @@ sudo python3 setup.py install
 which uwsgi # 输出/usr/local/bin/uwsgi
 
 ----安装nginx
-http://iampythoner.com/misc/nginx_cnfig
+http://iampythoner.com/misc/nginx_config
 
 -----node.js环境安装
 # 最好安装绿色版，node更新太频繁，可以将不同的版本放在同一目录下，使用软链接切换

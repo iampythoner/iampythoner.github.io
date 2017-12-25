@@ -11,7 +11,7 @@ permalink: /misc/
     <li><a target='blank' href='/misc/django-haystack+whoosh+jiaba'>django使用haystack、whoosh、jieba</a></li>
     <li><a target='blank' href='/misc/fastDFS_cnfig'>fastDFS配置</a></li>
     <li><a target='blank' href='/misc/uwsgi_cnfig'>uwsgi安装和配置</a></li>
-    <li><a target='blank' href='/misc/nginx_cnfig'>nginx安装和配置</a></li>
+    <li><a target='blank' href='/misc/nginx_config'>nginx安装和配置</a></li>
     <li><a target='blank' href='/misc/python_blog'>python_blog</a></li>
     <li><a target='blank' href='/misc/useful_command'>非常有用的命令</a></li>
     <li><a target='blank' href='/misc/ubuntu_desktop_app'>ubuntu桌面程序图标</a></li>

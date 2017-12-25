@@ -7,6 +7,8 @@ categories: Linux
 
 ## CentOS
 
+mini版 centOS 7
+
 ```sh
 ----打开网卡
 # 不同的系统版本或者电脑这个会不同，不一定都是ens33
@@ -83,13 +85,11 @@ yum install ncurses-devel -y
 git clone https://github.com/vim/vim.git
 cd vim
 # 配置
-./configure --enable-multibyte --enable-pythoninterp=yes --enable-python3interp=yes
+./configure --enable-multibyte --enable-pythoninterp=yes --enable-python3interp=yes --with-features=huge
 # 编译
-make
+make CFLASS="-02 -D_FORTIFY_SOURCE=1"
 # 安装
 make install
-# 退出登录
-logout
 
 ----配置Vundle
 yum update
@@ -275,16 +275,7 @@ sudo python3 setup.py install
 which uwsgi # 输出/usr/local/bin/uwsgi
 
 ----安装nginx
-sudo apt install nginx
---常用命令
-# 启动服务
-sudo service nginx start
-# 关闭
-sudo nginx -s stop
-# 重启
-sudo nginx -s reopen
-# 重新加载配置文件
-sudo nginx -s reload
+http://iampythoner.com/misc/nginx_cnfig
 
 -----node.js环境安装
 # 最好安装绿色版，node更新太频繁，可以将不同的版本放在同一目录下，使用软链接切换

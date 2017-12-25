@@ -1,6 +1,6 @@
 ---
 layout: cnblog_post
-title:  "Ubunut裸机"
+title:  "Ubuntu裸机"
 permalink: '/misc/Ubuntu_env'
 date:   2017-11-20 07:34:39
 categories: misc

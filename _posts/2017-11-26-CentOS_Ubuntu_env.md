@@ -51,7 +51,7 @@ cd ~/Documents/lib
 wget -nd https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
 tar -zxvf Python-3.6.3.tgz
 # cd Python3.6.3 开始编译安装
-./configure --enable-optimizations
+./configure --enable-optimizations --enable-shared
 # 编译安装
 make && make install
 # 检查一下安装是否成功

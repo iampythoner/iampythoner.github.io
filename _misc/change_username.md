@@ -1,7 +1,7 @@
 ---
 permalink: /misc/change_username
 layout: cnblog_post
-title:  '更改Ubuntu用户名、登录名、组名'
+title:  '更改ubuntu用户名、登录名、组名'
 date:   2017-10-18 06:34:39
 categories: misc
 ---

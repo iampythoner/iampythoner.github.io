@@ -1,13 +1,13 @@
 ---
 layout: cnblog_post
-title:  "Ubuntu裸机"
-permalink: '/misc/Ubuntu_env'
+title:  "ubuntu裸机"
+permalink: '/misc/ubuntu_env'
 date:   2017-11-20 07:34:39
 categories: misc
 ---
 
 ubuntu 17.10
-## Ubuntu
+## ubuntu
 
 ```sh
 ----安装curl

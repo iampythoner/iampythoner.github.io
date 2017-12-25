@@ -37,22 +37,28 @@ brew install nginx
 
 最建议编译安装：ubuntu和mac都可以使用这种方式<br>
 
-##### ubuntu编译安装:
+##### ubuntu、CentOS 编译安装:
 
 <a href="/misc/nginx_error" target='blank'>依赖错误信息</a>
 
 ```
 # 安装依赖项
+# ubuntu
 sudo apt install libpcre3 libpcre3-dev
 sudo apt install zlib1g-dev
 sudo apt install libssl-dev
+
+# CentOS
+sudo yum install pcre pcre-devel -y
+sudo yum install zlib-devel
+sudo yum install openssl-devel
 ```
 安装
 
 ```
 cd ~/Documents/lib
 wget -nd http://124.205.69.131/files/91820000052E0119/nginx.org/download/nginx-1.10.2.tar.gz
-tar zxf nginx-1.10.3.tar.gz
+tar zxf nginx-1.10.2.tar.gz
 cd nginx-1.10.3
 
 

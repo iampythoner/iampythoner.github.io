@@ -25,3 +25,8 @@ vim 修改了只读文件，但是想保存住呀
 tee : The output of the vi/vim write command is redirected using tee.
 % : Triggers the use of the current filename.<br>
 Simply put, the ‘tee’ command is run as sudo and follows the vi/vim command on the current filename given.<br>
+
+
+查看发行版信息
+cat /proc/version
+lsb_release -a

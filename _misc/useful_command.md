@@ -28,5 +28,9 @@ Simply put, the ‘tee’ command is run as sudo and follows the vi/vim command 
 
 
 查看发行版信息
+
+```
 cat /proc/version
+
 lsb_release -a
+```

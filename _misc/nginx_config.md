@@ -151,3 +151,78 @@ location = / {
 }
 ```
 
+##### 二级域名配置
+
+正常情况下不修改默认nginx.conf，而是在其他文件中修改，在nginx.conf以include的方式引用
+
+如，nginx.conf
+
+```
+worker_processes  2;
+
+error_log  logs/error.log;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    client_max_body_size 20M;
+    keepalive_timeout  65;
+
+    ### ..
+
+    include servers/*;
+    include mike/*;
+}
+```
+
+`mike/main.conf`中配置`mike.com`, 是一个前后端分离的项目的静态页面，开发过程中使用的是8080端口
+
+```
+server {
+    listen       80;
+    server_name  mike.com;
+
+    charset      utf-8;
+
+#   location / {
+#       proxy_pass http://127.0.0.1:8080;
+#   }
+    location / {
+        alias /Users/Mike/Deploy/vue_pro/;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+```
+
+`mike/api_1_0.conf`中配置`api.mike.com`, 是1.0版api的地址
+
+```
+server {
+    listen       80;
+    server_name  api.mike.com;
+    charset      utf-8;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+```
+
+
+
+

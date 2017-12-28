@@ -8,7 +8,8 @@ categories: misc
 
 ## CentOS
 
-mini版 centOS 7
+mini版 centOS 7, <br>
+aliyun 不需要打开网卡和时间校准两个步骤
 
 ```sh
 ----打开网卡

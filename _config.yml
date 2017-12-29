@@ -19,7 +19,6 @@ disqus_shortname: Mike
 permalink: /:year/:month/:title/
 markdown: kramdown
 gems: [jekyll-paginate, jekyll-gist, jekyll-archives]
-plugins: [jekyll-paginate, jekyll-gist, jekyll-archives]
 
 # Tag
 enableTags: true

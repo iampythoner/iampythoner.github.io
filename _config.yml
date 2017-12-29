@@ -48,6 +48,17 @@ show_dir_listing: true
 #     day: '/:year/:month/:day/'
 #     tag: '/tag/:name/'
 #     category: '/category/:name/'
+jekyll-archives:
+  enabled: [year, month, categories]
+  layouts:
+    category: 'posts_by_category'
+    year: year-archive
+    month: month-archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'
 
 # derectory_listing
 directory_listing_title: "Contents: "

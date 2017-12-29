@@ -14,7 +14,8 @@
   {
     "text": "Category",
     "url": "/category/全部",
-    "icon": "fa-folder"
+    "icon": "fa-folder",
+    "layout": "posts_by_category"
   },
   {
     "text": "About",

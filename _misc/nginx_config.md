@@ -39,7 +39,22 @@ brew install nginx
 
 ##### ubuntu、CentOS 编译安装:
 
-<a href="/misc/nginx_error" target='blank'>依赖错误信息</a>
+先卸载并清理apt安装的nginx：
+
+```
+sudo nginx -s stop
+sudo apt remove nginx
+
+sudo rm -rf /usr/sbin/nginx
+sudo rm -rf /etc/nginx
+sudo rm -rf /var/log/nginx
+sudo rm -rf /usr/sbin/nginx
+sudo rm -rf /var/www/html
+```
+
+安装过程中可能遇到的一些<a href="/misc/nginx_error" target='blank'>依赖错误信息</a>
+
+开始安装：
 
 ```
 # 安装依赖项

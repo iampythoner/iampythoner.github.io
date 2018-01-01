@@ -70,6 +70,9 @@ sudo make && sudo make install
 python3 -V
 pip3 -V
 
+----更新pip3
+pip3 install --upgrade pip
+
 ## 如果出现这个错误
 python3: error while loading shared libraries: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
 # 这样解决

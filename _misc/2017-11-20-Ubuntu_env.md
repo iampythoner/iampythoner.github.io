@@ -51,6 +51,9 @@ python3 install.py --clang-completer
 ----安装pip3
 sudo apt install python3-pip
 
+----更新pip3
+pip3 install --upgrade pip
+
 ----安装virtualenv、virtualenvwrapper
 sudo pip3 install virtualenv
 sudo pip3 install virtualenvwrapper

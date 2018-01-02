@@ -35,7 +35,20 @@ mac 使用brew安装：
 brew install nginx
 ```
 
-最建议编译安装：ubuntu和mac都可以使用这种方式<br>
+使用brew安装，常用目录为:
+
+```
+#### 日志目录
+/usr/local/Cellar/nginx/1.12.2_1/logs
+#### 配置文件目录
+/usr/local/etc/nginx
+#### 默认页面目录
+/usr/local/var/www/
+#### bin
+/usr/local/Cellar/nginx/1.12.2_1/bin/nginx
+```
+
+最建议编译安装：无论是ubuntu、mac还是CentOS或者其他平台，都可以使用这种方式<br>
 
 ##### ubuntu、CentOS 编译安装:
 
@@ -76,7 +89,6 @@ wget -nd http://124.205.69.131/files/91820000052E0119/nginx.org/download/nginx-1
 tar zxf nginx-1.10.2.tar.gz
 cd nginx-1.10.3
 
-
 sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module
 
 sudo make
@@ -94,47 +106,19 @@ sudo make install
 # zlib: http://www.zlib.net/
 ```
 
-
-
 ```
-./configure --prefix=/usr/local/nginx --with-pcre=/Users/Mike/Documents/lib/nginx/pcre2-10.30 --with-openssl=/Users/Mike/Documents/lib/openssl/openssl-1.0.2n --with-http_ssl_module --with-zlib=/Users/Mike/Documents/lib/nginx/zlib-1.2.11 --with-http_stub_status_module
+# 注意不要下载pcre第二版
+./configure --prefix=/usr/local/nginx --with-pcre=/Users/Mike/Documents/lib/nginx/pcre-8.41 --with-openssl=/Users/Mike/Documents/lib/openssl/openssl-1.0.2n --with-http_ssl_module --with-zlib=/Users/Mike/Documents/lib/nginx/zlib-1.2.11 --with-http_stub_status_module
 
+# make 时遇到了一个openssl的错误一直没有解决_ngx_ssl_check_host in ngx_event_openssl.o ld: symbol(s) not found for architecture x86_64
+# 最后还是参照https://www.widlabs.com/article/mac-os-x-nginx-compile-symbol-not-found-for-architecture-x86_64 解决了
+# 一定要先按照这篇文章修改，再make
 sudo make 
 
 sudo make install
 ```
 
-mac 上的pcre老是编译失败，最终还是使用了brew安装。
-
-
 编译安装的好处在于可以再次编译增加模块，同时如果想卸载只需删除`/usr/local/nginx`文件夹即可。
-
-brew 安装之后的常用目录为:
-
-```
-Docroot is: /usr/local/var/www
-
-The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
-nginx can run without sudo.
-
-nginx will load all files in /usr/local/etc/nginx/servers/.
-
-To have launchd start nginx now and restart at login:
-  brew services start nginx
-Or, if you don't want/need a background service you can just run:
-  nginx
-```
-
-```
-#### 日志目录
-/usr/local/Cellar/nginx/1.12.2_1/logs
-#### 配置文件目录
-/usr/local/etc/nginx
-#### 默认页面目录
-/usr/local/var/www/
-#### bin
-/usr/local/Cellar/nginx/1.12.2_1/bin/nginx
-```
 
 ### 基本操作
 

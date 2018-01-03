@@ -36,7 +36,7 @@ tar zxvf uwsgi-latest.tar.gz
 cd <dir>
 make
 ```
-最终失败，出现这个问题:
+出现这个问题:
 
 ```
 ld: file not found: /usr/lib/system/libsystem_darwin.dylib for architecture x86_64
@@ -44,7 +44,23 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 *** error linking uWSGI ***
 ```
 
-使用pip安装仍然是这个问题，最后是使用brew安装的:
+可以添加编译连接库，再执行make
+
+```
+export LDFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk
+
+make
+```
+
+之后出现了链接ssl库的错误，可以这样执行
+
+```
+export LDFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -L /usr/local/Cellar/openssl@1.1/1.1.0g/lib"
+
+make
+```
+
+这样又出现了x86_64找不到符号的问题，而无论是使用pip安装，还是下载uwsgi源码编译安装都有类似的问题， 最后是使用brew安装的:
 
 ```
 brew install uwsgi

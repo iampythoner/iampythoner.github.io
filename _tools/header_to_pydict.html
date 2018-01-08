@@ -1,0 +1,36 @@
+---
+layout: cnblog_post
+title: header_to_pydict
+date: 2018-01-07 08:37:39
+---
+
+<script>
+    function convert() {
+        var headersTextArea = document.getElementById('headers');
+        var pydictTextArea = document.getElementById('pydict');
+        var headerString = headersTextArea.value.trim();
+        var components = headerString.split('\n');
+        var pydictString = '{'
+        for (let index = 0; index < components.length; index++) {
+            var element = components[index];
+            var es = element.split(':');
+            pydictString += "'" + es[0] + "': '" + es[1] + "'";
+            if (index != components.length - 1) {
+                pydictString += ', '
+            }
+        }
+        pydictString += '}'
+        pydictTextArea.value = pydictString
+    }
+
+</script>
+
+<textarea id="headers" id="" cols="30" rows="10">
+
+</textarea><br>
+
+<button onclick="convert()">点击转为Python字典</button> <br>
+
+<textarea id="pydict" id="" cols="30" rows="10">
+    
+</textarea>

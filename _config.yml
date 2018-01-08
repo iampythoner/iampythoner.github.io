@@ -55,3 +55,7 @@ collections:
     collections_dir: misc
     output: true
     permalink: /:collection/:title
+  tools:
+    collections_dir: tools
+    output: true
+    permalink: /:collection/:title

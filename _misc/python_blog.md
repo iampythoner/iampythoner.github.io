@@ -10,3 +10,8 @@ categories: misc
 <a href="https://www.keakon.net/" target='blank'>https://www.keakon.net/</a><br>
 <a href="http://www.dongwm.com/" target='blank'>董伟明</a><br>
 <a href="http://python-web-guide.readthedocs.io/zh/latest/base/basics.html" target='blank'>入坑指南</a><br>
+
+<a href="https://shazow.net/" target='blank'>https://shazow.net/</a>
+<a href="https://feisky.xyz/2016/04/19/cgo-in-go-1-6/" target='blank'>https://feisky.xyz/2016/04/19/cgo-in-go-1-6/</a>
+
+<a href="https://mozillazg.com/" target='blank'>https://mozillazg.com/</a>

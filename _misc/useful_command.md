@@ -34,3 +34,9 @@ cat /proc/version
 
 lsb_release -a
 ```
+
+查看文件的16进制数据
+
+```
+xxd
+``` 

@@ -40,3 +40,9 @@ lsb_release -a
 ```
 xxd
 ``` 
+
+ubuntu桌面版拨号联网
+
+```
+nm-connection-editor
+```

@@ -42,7 +42,7 @@ xxd
 ``` 
 
 ubuntu桌面版拨号联网
-hehe
+hehehehe
 ```
 nm-connection-editor
 ```

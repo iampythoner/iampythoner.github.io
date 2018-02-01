@@ -7,6 +7,7 @@ categories: misc
 ---
 
 ubuntu 17.10
+
 ## ubuntu
 
 ```sh

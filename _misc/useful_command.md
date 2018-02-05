@@ -9,7 +9,7 @@ categories: misc
 常看端口占用情况：
 
 ```
-sudo lsof -i:80
+sudo lsof -i:80 # 只显示端口 sudo lsof -Pti:80
 netstat -tunlp|grep
 ```
 这是最服百度的一次：<a href="https://jingyan.baidu.com/article/546ae1853947b71149f28cb7.html" target='blank'>linux如何查看端口被哪个进程占用？</a>

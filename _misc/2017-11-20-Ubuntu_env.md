@@ -100,6 +100,10 @@ wget -nd https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bu
 vim ~/.zshrc
 ZSH_THEME="bullet-train"
 # 250 197 113
+----使用solarized配色
+git clone https://github.com/Anthony25/gnome-terminal-colors-solarized
+cd gnome-terminal-colors-solarized
+./install.sh
 
 
 ----SSH基本配置

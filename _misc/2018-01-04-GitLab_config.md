@@ -110,7 +110,7 @@ sudo vim /etc/gitlab/gitlab.rb
     gitlab_rails['smtp_address'] = "smtp.163.com"
     gitlab_rails['smtp_port'] = 25
     gitlab_rails['smtp_user_name'] = "18201000104@163.com"
-    gitlab_rails['smtp_password'] = "541882233zy"
+    gitlab_rails['smtp_password'] = "xxxxxxx"
     gitlab_rails['smtp_domain'] = "163.com"
     gitlab_rails['smtp_authentication'] = "login"
     gitlab_rails['smtp_enable_starttls_auto'] = true

@@ -177,13 +177,14 @@ microsoft官网 https://code.visualstudio.com/
 只需解压绿色版即可 打开bin/pycharm.sh
 
 ----安装sublime 3143
-wget -nd https://download.sublimetext.com/sublime_text_3_build_3143_x64.tar.bz
+wget -nd https://download.sublimetext.com/sublime_text_3_build_3143_x64.tar.bz2
 tar jxf sublime_text_3_build_3143_x64.tar.bz2
 sudo mv sublime_text_3 /opt/sublime_text
+cd /opt/sublime_text
 sudo cp sublime_text.desktop /usr/share/applications/
-vim /usr/share/applications/sublime_text.desktop
-# 修改Icon为
-Icon=/opt/sublime_text/Icon/256x256/sublime-text.png
+sudo vim /usr/share/applications/sublime_text.desktop
+    # 修改Icon为
+    Icon=/opt/sublime_text/Icon/256x256/sublime-text.png
 # 注册码
 —– BEGIN LICENSE —–
 TwitterInc

@@ -6,6 +6,7 @@ date:   2018-03-16 07:34:39
 categories: misc
 ---
 
+#### 创建库、集合 删除库、集合
 ```
 ### 隐式创建库和集合
 use dbname
@@ -28,7 +29,11 @@ max	数值	（可选）指定固定集合中包含文档的最大数量。
 db.createCollection('mycol', {capped: true, autoIndexId: true, size:6142800, max: 10000})
 ###### 删除集合
 db.collection.drop() # 成功返回true 否则返回false
+```
 
+#### insert
+
+```
 ########## insert
 #### insert只能插入一条，尽管传入了多个
 db.test.insert({name: "mike"}, {name: "john"})
@@ -51,7 +56,11 @@ db.test.insertMany([{name: 'alice'}, {name: 'jack'}])
 		ObjectId("5aab6e91b7df19c6910ab19a")
 	]
 }
+```
 
+#### update save
+
+```
 ###### 更新 update 和 save
 db.collection.update(
    <query>,
@@ -102,7 +111,12 @@ db.col.update( { "count" : { $gt : 4 } } , { $set : { "test5" : "OK"} },true,fal
 # 结果插入了一条数据
 { "_id" : ObjectId("5aab73b9011fd37acf5d4e2a"), "test5" : "OK" }
 
+```
 
+
+#### remove
+
+```
 ################  删除文档
 db.collection.remove(
    <query>,
@@ -126,8 +140,11 @@ db.col.remove({title: {$regex: "MongoDB"}}, false)
 
 ### 删除集合中所有的文档
 db.col.remove({})
+```
 
+#### find
 
+```
 ############### find 格式
 db.collection.find(query, projection)
 
@@ -224,18 +241,11 @@ db.stu.count({age:{$gt:20},gender:true})
 # db.集合名称.distinct('去重字段',{条件})
 db.stu.distinct('hometown',{age:{$gt:18}})
 
+```
 
-############################ 索引  ensureIndex
-创建的时候指定字段和索引顺序
-db.col.ensureIndex({"title":1})
+#### 聚合 aggregate
 
-多个字段创建索引，联合索引
-db.col.ensureIndex({"title": 1, "description": -1})
-
-其他可选参数:
-http://www.runoob.com/mongodb/mongodb-indexing.html
-
-############################ 聚合 aggregate
+```
 # MongoDB 中的聚合经常配合管道使用
 
 # 基本格式
@@ -265,8 +275,12 @@ db.test.aggregate([{$group: {_id: '$age', first: {$first: "$name"}}}])
 { "_id" : 12, "first" : "Mike" }
 
 $last 根据资源文档的排序获取最后一个文档数据, 和first功能类似
+```
 
-############################ 管道
+#### 管道
+<img src="http://7vim0m.com1.z0.glb.clouddn.com/mongo/pipe.png" width="400" alt="管道"/>
+
+```
 # MongoDB 管道可以配合aggregate方法使用，可以实现过条件分组过滤数据的功能
 常用的管道操作有：
 $project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。
@@ -327,14 +341,83 @@ db.stu.aggregate({
         name: {$push: '$$ROOT'}
     }
 })
+```
 
-################################## 备份与恢复
+#### 索引
+
+```
+### ensureIndex
+创建的时候指定字段和索引顺序
+db.col.ensureIndex({"title":1})
+
+多个字段创建索引，联合索引
+db.col.ensureIndex({"title": 1, "description": -1})
+
+其他可选参数:
+http://www.runoob.com/mongodb/mongodb-indexing.html
+```
+
+例子：
+
+```
+索引：以提升查询速度
+
+测试：插入10万条数据到数据库中
+for(i=0;i<100000;i++){db.t12.insert({name:'test'+i,age:i})}
+
+db.t1.find({name:'test10000'})
+db.t1.find({name:'test10000'}).explain('executionStats')
+
+建立索引之后对比：
+语法：db.集合.ensureIndex({属性:1})，1表示升序， -1表示降序
+具体操作：db.t1.ensureIndex({name:1})
+db.t1.find({name:'test10000'}).explain('executionStats')
+```
+
+<img src="http://7vim0m.com1.z0.glb.clouddn.com/mongo/index1.png" width="400" alt="no index"/>
+
+<img src="http://7vim0m.com1.z0.glb.clouddn.com/mongo/index2.png?fdf=df" width="400" alt="index"/>
+
+
+```
+在默认情况下创建的索引均不是唯一索引。
+创建唯一索引:
+     db.t1.ensureIndex({"name":1},{"unique":true})
+创建唯一索引并消除重复：
+     db.t1.ensureIndex({"name":1},{"unique":true,"dropDups":true})  
+建立联合索引(什么时候需要联合索引)：
+     db.t1.ensureIndex({name:1,age:1})
+查看当前集合的所有索引：
+     db.t1.getIndexes()
+删除索引：
+     db.t1.dropIndex('索引名称')
+```
+
+
+#### 备份与恢复
+
+```
+
+################################## 备份
 -h： MongDB所在服务器地址，例如：127.0.0.1，当然也可以指定端口号：127.0.0.1:27017
 -d： 需要备份的数据库实例，例如：test
 -o：备份的数据存放位置，例如：c:\data\dump，当然该目录需要提前建立，在备份完成后，系统自动在dump目录下建立一个test目录，这个目录里面存放该数据库实例的备份数据。
 mongodump -h dbhost -d dbname -o dbdirectory
 
--
+################################## 恢复
+恢复语法：
+     mongorestore -h dbhost -d dbname --dir dbdirectory
+-h： 服务器地址
+-d： 需要恢复的数据库实例
+--dir： 备份数据所在位置
+
+mongorestore -h 192.168.196.128:27017 -d test2 --dir ~/Desktop/test1bak/test1
+```
+
+
+#### 登录验证、权限设置
+
+```
 ####### 外网访问
 vim /etc/mongod.conf
     bindip: 0.0.0.0
@@ -379,42 +462,4 @@ db.auth("root","123456")
 db.system.users.find()
 
 ###### 如果在mongo.conf 配置文件中设置了auth为true 才需要验证 默认是以admin登录的
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 为了使得查询到的数据能够直接在项目中使用，所以这个参数叫做了project
-$gt $inc
-pretty()打印美化
-
-
-
-
-
-
 ```

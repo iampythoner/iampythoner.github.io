@@ -14,6 +14,16 @@ netstat -tunlp|grep
 ```
 这是最服百度的一次：<a href="https://jingyan.baidu.com/article/546ae1853947b71149f28cb7.html" target='blank'>linux如何查看端口被哪个进程占用？</a>
 
+查看指定协议的端口（使用netstat也是可以的）
+
+```
+# lsof -i [protocol] : port
+sudo lsof -i tcp:3306
+# 结果
+COMMAND    PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+mysqld  108931 mysql   44u  IPv4 575858      0t0  TCP *:mysql (LISTEN)
+```
+
 
 vim 修改了只读文件，但是想保存住呀
 
@@ -41,8 +51,21 @@ lsb_release -a
 xxd
 ``` 
 
+木有ip了：
+
+```
+dhclient
+```
+
 ubuntu桌面版拨号联网
 
 ```
 nm-connection-editor
 ```
+
+
+查看指定协议、指定端口的使用情况 
+
+
+
+

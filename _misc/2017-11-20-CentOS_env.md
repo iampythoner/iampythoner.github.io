@@ -106,9 +106,11 @@ cd vim
 ./configure --enable-multibyte --enable-pythoninterp=yes --enable-python3interp=yes --with-features=huge
 # 编译
 make CFLASS="-02 -D_FORTIFY_SOURCE=1"
+###### 如果遇到if_py_both.h:*: undefined reference to 'PyUnicodeUCS4_AsEncodedString'问题，可以在看一下这个文章：http://vim-dev.vim.narkive.com/3nRfeAJJ/vim-cannot-be-built-in-centos-7-due-to-if-py-both-h-undefined-reference-to-pyunicodeucs4
 # 安装
 sudo make install
 
+----------现在用spacevim了，就不再配置Vundle和YouCompleteMe了
 ----配置Vundle
 sudo yum update
 sudo yum upgrade vim # 更新vim
@@ -131,6 +133,23 @@ sudo yum install automake gcc gcc-c++ kernel-devel cmake
 sudo python3 install.py --clang-completer
 # 如果要安装所有语言的提示可以使用 ./install.py --all 前提是确保 xbuild, go, tsserver, node, npm, rustc, and cargo tools 都被安装，并且在PATH配置了
 
+----mongo shell升级
+使用云端mongo数据库时，遇到过mongo shell版本过低登录不上的问题，可以参照这个给CentOS配置yum源，升级新版的mongo shell
+https://blog.csdn.net/xyang81/article/details/51749989
+---mongo权限
+mongo服务附带auth参数运行，需要验证登录
+可以创建一个admin账户，之后所有的账号都可以由这个账号产生,而不是像大部分的网上的文章说的狗屎一样的做法(关闭auth，创建账户，再开启auth，Shit！！！)
+use admin
+db.createUser({
+    user: "root",
+    pwd: "xxx",
+    roles: [{
+        role: "userAdminAnyDatabase",
+        db: "admin"
+    }]
+})
+更多权限控制和管理的内容，查看https://www.cnblogs.com/shiyiwen/p/5552750.html
+
 ----安装nginx
 http://iampythoner.com/misc/nginx_config
 
@@ -140,7 +159,15 @@ wget -nd http://download.redis.io/releases/redis-4.0.4.tar.gz
 tar -zxf redis-4.0.4.tar.gz
 cd redis-4.0.4/src
 make
-sudo make install
+sudo make PREFIX=/usr/local/redis install
+sudo mkdir /usr/local/redis/conf
+sudo cp ../redis.conf /usr/local/redis/conf/redis.conf
+vim ~/.bash_profile
+    export REDIS_HOME=/usr/local/redis
+    export PATH=$REDIS_HOME/bin:$PATH
+source ~/.zshrc
+# 启动redis服务
+redis-server /usr/local/redis/conf/redis.conf
 
 ----mysql安装之前卸载mariadb
 sudo rpm -qa | grep mariadb

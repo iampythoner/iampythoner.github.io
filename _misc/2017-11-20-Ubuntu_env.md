@@ -160,7 +160,15 @@ wget -nd http://download.redis.io/releases/redis-4.0.4.tar.gz
 tar -zxf redis-4.0.4.tar.gz
 cd redis-4.0.4/src
 make
-sudo make install
+sudo make PREFIX=/usr/local/redis install
+sudo mkdir /usr/local/redis/conf
+sudo cp ../redis.conf /usr/local/redis/conf/redis.conf
+vim ~/.bash_profile
+    export REDIS_HOME=/usr/local/redis
+    export PATH=$REDIS_HOME/bin:$PATH
+source ~/.zshrc
+# 启动redis服务
+redis-server /usr/local/redis/conf/redis.conf
 
 -----后续还要添加的
 supervisor安装及配置

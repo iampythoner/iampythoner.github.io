@@ -6,8 +6,6 @@ date:   2017-11-20 07:34:39
 categories: misc
 ---
 
-ubuntu 17.10
-
 ## ubuntu
 
 ```sh
@@ -22,32 +20,80 @@ sudo apt install net-tools
 ----安装git
 sudo apt install git
 
-----安装vim
+----必要的库
+sudo apt-get install python-dev
+sudo apt-get install zlib1g-dev
+
+----安装pip
+# https://pip.pypa.io/en/stable/installing/
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py
+----安装ipython2
+sudo pip install ipython # 依赖python-dev中的Python.h
+
+
+----------------pyenv
+https://github.com/pyenv/pyenv
+
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+exec "$SHELL"
+
+基本使用：
+# 安装指定版本的python
+pyenv install 2.7.8
+# 例如 v=3.5.2|wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v
+# build时需要的库：
+WARNING: The Python readline extension was not compiled. Missing the GNU readline lib?
+ERROR: The Python zlib extension was not compiled. Missing the zlib?
+WARNING: The Python bz2 extension was not compiled. Missing the bzip2 lib?
+WARNING: The Python sqlite3 extension was not compiled. Missing the SQLite3 lib?
+ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+# 解决
+sudo apt-get install libreadline6 libreadline6-dev
+sudo apt-get install zlib1g-dev
+sudo apt-get install libbz2-dev
+sudo apt-get install libssl-dev
+sudo apt-get install libsqlite3-dev
+# 查看已经安装的所有的python版本
+pyenv versions
+# 查看当前使用的环境
+pyenv version
+# 设置某一个版本为全局的python
+pyenv global xxx
+------ 配合pyenv-virtualenv
+https://github.com/pyenv/pyenv-virtualenv
+
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
+exec "$SHELL"
+
+--基本使用
+#使用当前的pyenv设定的python版本创建虚拟环境
+pyenv virtualenv venv34
+#列出已经存在的所有的虚拟环境
+pyenv virtualenvs
+# 激活和退出虚拟环境
+pyenv activate
+pyenv deactivate
+# 删除已经存在的虚拟环境
+pyenv uninstall my-virtual-env
+
+----安装最新的vim
+# https://blog.csdn.net/gatieme/article/details/52752070
+# sudo: add-apt-repository: command not found
+# https://www.aliyun.com/jiaocheng/137952.html
+sudo apt-get remove vim
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt-get update
 sudo apt install vim
 
-----配置Vundle
-sudo apt-get update # 更新apt
-sudo apt-get upgrade vim # 更新vim
-# clone vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-# 配置 vimrc（提供文件.vimrc 和 color主题文件夹）
-vim ~/.vimrc
-# 安装插件，进入vim之后
-:PluginInstall
+----安装spacevim
+# https://github.com/SpaceVim/SpaceVim
+curl -sLf https://spacevim.org/install.sh | bash
 
-----配置YouCompleteMe
-# 如果PluginInstall不能成功创建YouCompleteMe代码目录，cd到~/.vim/bundle执行git clone https://github.com/Valloric/YouCompleteMe手动下载代码
-cd ~/.vim/bundle/YouCompleteMe
-git submodule update --init --recursive
-# 安装Cmake 因为./install.py --clang-completer需要cmake, 可以按照YouCompleteMe的推荐方式：https://github.com/Valloric/YouCompleteMe
-# sudo apt install build-essential cmake
-# 也可以在官网上直接下载https://cmake.org/download/  推荐使用这种方式，不必下载源码版，下载可执行版，然后做软链接即可
-wget -nd -P ~/Documents/lib https://cmake.org/files/v3.10/cmake-3.10.0-Linux-x86_64.tar.gz
-cd ~/Documents/lib
-tar -zxvf cmake-3.10.0-Linux-x86_64.tar.gz
-sudo ln -s ~/Documents/lib/cmake-3.10.0-Linux-x86_64/bin/cmake /usr/local/bin
-# 回到~/.vim/bundle/YouCompleteMe目录编译安装
-python3 install.py --clang-completer
 
 ----安装pip3
 sudo apt install python3-pip
@@ -55,10 +101,8 @@ sudo apt install python3-pip
 ----更新pip3
 pip3 install --upgrade pip
 
-----安装virtualenv、virtualenvwrapper
-sudo pip3 install virtualenv
-sudo pip3 install virtualenvwrapper
-配置virtualenvwrapper环境, http://iampythoner.com/2017/10/virtualenv/#Linux_env
+----安装ipython3
+sudo pip3 install ipython
 
 ----安装mysql
 sudo apt install mysql-server
@@ -67,9 +111,6 @@ sudo apt install mysql-server
 ----修改mysql初始密码
 sudo cat /etc/mysql/debian.cnf
 set password for 'root'@'localhost' = password('123456');
-
-----安装ipython3
-sudo pip3 install ipython
 
 ----安装oh-my-zsh,首先要安装zsh
 # 安装zsh
@@ -170,9 +211,159 @@ source ~/.zshrc
 # 启动redis服务
 redis-server /usr/local/redis/conf/redis.conf
 
+
+-----mongo安装和配置
+这里使用的是ubuntu14.04 codename：trusty 安装mongo3.0的例子：
+1.添加mongo公共GPG密钥
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+2.添加阿里的源
+echo "deb http://mirrors.aliyun.com/mongodb/apt/ubuntu/dists/trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+3.重新加载本地安装包列表数据库
+sudo apt-get update
+4.安装
+sudo apt-get install -y mongodb-org
+
+安装完之后，直接以以下配置启动了
+/usr/bin/mongod --config /etc/mongod.conf
+链接mongo创建root用户
+    use admin
+    db.createUser({user: 'root', pwd: 'root', roles: [{role: 'root', db: 'admin'}]}
+退出修改/etc/mongod.conf添加验证
+# 如果是yaml格式的配置
+security:
+  authorization: enabled
+# 其他格式的配置
+auth=true
+
+重启mongo
+sudo service mongod restart
+
+链接
+mongo
+    use admin;
+    db.auth('root', 'root')
+
+    #为数据库dbaa添加用户mike
+    #切到dbaa
+    use dbaa
+    db.createUser({user: 'mike', pwd: 'mike_pwd', roles: [{role: 'dbAdmin',db: 'dbaa'}, {role: 'readWrite', db: 'dbaa'}]})
+    #退出
+使用mike链接数据库dbaa
+mongo
+    use dbaa
+    db.auth('mike', 'mike_pwd')
+    #输入 show users 提示以下错误
+    #E QUERY    Error: not authorized on admin to execute command { usersInfo: 1.0 }
+    # 解决方法：使用root登录授予mike权限
+    # 切回admin
+    use admin
+    db.auth('root', 'root')
+    # 再切回dbaa
+    use dbaa
+    # 再授予权限
+    db.grantRolesToUser('mike', [{ role: "dbOwner", db: "sandbox"}])
+    # 使用mike认证登录
+    db.auth('mike', 'mike_qwer')
+    # 此时show users可以执行了
+    show users
+
+------elasticsearch
+sudo tar zxf jdk-8u161-linux-x64.tar.gz -C /usr/local
+vim ~/.bashrc
+    ### JDK
+    export JAVA_HOME=/usr/local/jdk1.8.0_161
+    export JRE_HOME=$JAVA_HOME/jre
+    export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+    export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+# 验证一下JDK安装
+java -version
+javac -version
+
+sudo unzip elasticsearch-6.2.3.zip -d /usr/local
+vim ~/.bashrc
+    ### ES
+    export ES_HOME=/usr/local/elasticsearch-6.2.3
+    export PATH=$ES_HOME/bin:$PATH
+sudo chown mike:mike -R /usr/local/elasticsearch-6.2.3/
+# 启动es
+elasticsearch
+# 测试
+curl http://localhost:9200/
+
+--es外网访问
+vim config/elasticsearch.yml
+    network.host: 0.0.0.0
+启动es出现这个错误
+...[4WpsNl1] bound or publishing to a non-loopback address, enforcing bootstrap checks
+ERROR: [1] bootstrap checks failed
+[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]
+
+解决方法：
+sudo vi /etc/security/limits.conf
+    # elasticsearch config start
+    * soft nofile 65536
+    * hard nofile 131072
+    * soft nproc 2048
+    * hard nproc 4096
+    # elasticsearch config end
+然后一定要重启机器，重启重启重启，不重启自杀
+# ulimit -Hn 查看max file descriptors限制
+
+然后又遇到这个问题：
+...[4WpsNl1] bound or publishing to a non-loopback address, enforcing bootstrap checks
+ERROR: [1] bootstrap checks failed
+[1]: max number of threads [2048] for user [mike] is too low, increase to at least [4096]
+
+解决方法：
+sudo vi /etc/security/limits.d/90-nproc.conf
+    * soft nproc 4096
+再重启机器，重启重启重启，不重启自杀
+
+重新登录服务器，这个时候运行elasticsearch可以外网访问
+
+----安装kibana
+sudo tar zxf kibana-6.2.4-linux-x86_64.tar.gz -C /usr/local
+启动
+cd /usr/local/kibana-6.2.4-linux-x86_64
+bin/kibana
+
+--外网访问
+vim config/kibana.yml
+    server.host: "0.0.0.0"
+
 -----后续还要添加的
 supervisor安装及配置
-mongo基本配置
+
+-------------------不再使用的-----------------------
+----安装virtualenv、virtualenvwrapper
+sudo pip3 install virtualenv
+sudo pip3 install virtualenvwrapper
+配置virtualenvwrapper环境, http://iampythoner.com/2017/10/virtualenv/#Linux_env
+
+----配置Vundle
+sudo apt-get update # 更新apt
+sudo apt-get upgrade vim # 更新vim
+# clone vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# 配置 vimrc（提供文件.vimrc 和 color主题文件夹）
+vim ~/.vimrc
+# 安装插件，进入vim之后
+:PluginInstall
+
+----配置YouCompleteMe
+# 如果PluginInstall不能成功创建YouCompleteMe代码目录，cd到~/.vim/bundle执行git clone https://github.com/Valloric/YouCompleteMe手动下载代码
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+# 安装Cmake 因为./install.py --clang-completer需要cmake, 可以按照YouCompleteMe的推荐方式：https://github.com/Valloric/YouCompleteMe
+# sudo apt install build-essential cmake
+# 也可以在官网上直接下载https://cmake.org/download/  推荐使用这种方式，不必下载源码版，下载可执行版，然后做软链接即可
+wget -nd -P ~/Documents/lib https://cmake.org/files/v3.10/cmake-3.10.0-Linux-x86_64.tar.gz
+cd ~/Documents/lib
+tar -zxvf cmake-3.10.0-Linux-x86_64.tar.gz
+sudo ln -s ~/Documents/lib/cmake-3.10.0-Linux-x86_64/bin/cmake /usr/local/bin
+# 回到~/.vim/bundle/YouCompleteMe目录编译安装
+python3 install.py --clang-completer
+
 
 -------------------GUI Application-----------------------
 Ctrl + H # 桌面版显示隐藏文件/夹

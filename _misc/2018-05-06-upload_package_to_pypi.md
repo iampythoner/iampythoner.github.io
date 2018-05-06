@@ -2,7 +2,7 @@
 layout: cnblog_post
 title:  "upload_package_to_pypi"
 permalink: '/misc/upload_package_to_pypi'
-date:   2018-05-16 07:34:39
+date:   2018-05-06 07:34:39
 categories: misc
 ---
 

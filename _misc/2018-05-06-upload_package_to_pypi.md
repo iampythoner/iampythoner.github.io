@@ -10,10 +10,15 @@ categories: misc
 向PYPI上传包
 
 1.项目配置
-  *setup.py
-  *setup.cfg 包含setup.py脚本命令的默认选项，如果构建和分发包的过程更加复杂，并且需要向
+  ①setup.py 
+    命令：分为标准命令(distutils提供)、额外命令(setuptools、wheel提供)
+    常用命令：
+        标准：build、clean、install、sdist、register、bdist、check、upload
+        额外：develop、alias、test、bdist_wheel
+    重要的metadata:看下面的setup.py源码
+  ②setup.cfg 包含setup.py脚本命令的默认选项，如果构建和分发包的过程更加复杂，并且需要向
     setup.py命令中传入许多可选参数，那么这个文件非常有用。
-  *MANIFAST.in 文件导出清单
+  ③MANIFAST.in 文件导出清单
 
 2.在开发期间使用包
     安装包
@@ -74,4 +79,60 @@ categories: misc
 
     python setup.py bdist_wheel build
     python setup.py bdist_wheel upload
+```
+
+
+setup.py
+
+
+```py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import io
+import re
+from collections import OrderedDict
+from setuptools import setup
+
+with io.open('README.rst', 'rt', encoding='utf8') as f:
+    readme = f.read()
+
+with io.open('flask_session_imp/__init__.py', 'rt', encoding='utf8') as f:
+    version = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
+
+
+setup(
+    name='Flask-Session-Imp',
+    version=version,
+    url='https://github.com/mikezone/flask-session',
+    project_urls=OrderedDict((
+        ('Documentation', 'https://github.com/mikezone/flask-session'),
+        ('Code', 'https://github.com/mikezone/flask-session'),
+        ('Issue tracker', 'https://github.com/pallets/flask/issues'),
+    )),
+    license='BSD',
+    author='mike_chang',
+    author_email='82643885@qq.com',
+    maintainer='mike_chang',
+    maintainer_email='82643885@qq.com',
+    description='Adds server-side session support to your Flask application',
+    long_description=readme,
+    packages=['flask_session_imp'],
+    include_package_data=True,
+    zip_safe=False,
+    platforms='any',
+    # python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
+    install_requires=[
+        'Flask>=0.8'
+    ],
+    test_suite='test_session',
+    classifiers=[
+        'Environment :: Web Environment',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+    ]
+)
 ```

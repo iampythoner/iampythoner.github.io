@@ -6,6 +6,12 @@ date:   2018-05-06 07:34:39
 categories: misc
 ---
 
+真的，先了解一下各种开源协议的区别
+
+[https://www.zhihu.com/question/19568896](https://www.zhihu.com/question/19568896)
+
+[http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)
+
 ```
 向PYPI上传包
 

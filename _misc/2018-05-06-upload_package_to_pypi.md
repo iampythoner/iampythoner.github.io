@@ -37,7 +37,7 @@ categories: misc
         [pypi]
         repository:https://upload.pypi.org/legacy/
         username:mike_chang
-        password:541882233Zy
+        password: ******
     说明:
         sdist 源码发布版 ：生成.tar.gz 源码包
         bdist 预构建发行版：通过4个步骤编译包：

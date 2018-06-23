@@ -82,6 +82,12 @@ export PATH=$GOPATH/bin:$PATH
 ```
 如何快速正确的安装 Ruby, Rails 运行环境
 https://ruby-china.org/wiki/install_ruby_guide/
+
+rvm 官网
+https://www.rvm.io/
+
+ruby官网
+https://www.ruby-lang.org/
 ```
 
 

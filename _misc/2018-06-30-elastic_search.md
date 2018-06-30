@@ -40,7 +40,15 @@ es版本6.2.3
 
 向index: accounts _type:person 增加一条新的记录：
 
-`curl -H "Content-Type: application/json" -X PUT 'localhost:9200/accounts/person/1' -d '{"user":"张三","title":"工程师","desc":"数据库管理"}'`
+```
+curl -H "Content-Type: application/json" -X PUT 'localhost:9200/accounts/person/1' -d '
+{
+    "user": "张三",
+    "title": "工程师",
+    "desc": "数据库管理"
+}
+'
+```
 
 返回
 
@@ -63,7 +71,17 @@ es版本6.2.3
 
 请求路径`/accounts/person/1` 中的 `1`是该记录的id，也可以不指定，如果不指定要改成POST请求(ES作者对RESTful风格理解之深！！！[stackoverflow](https://stackoverflow.com/questions/630453/put-vs-post-in-rest?page=1&tab=votes#tab-top)、[w3](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5))
 
-使用POST创建一条Document: `curl -H "Content-Type: application/json" -X POST 'localhost:9200/accounts/person' -d '{"user":"李四","title":"工程师","desc":"系统管  理"}'`
+使用POST创建一条Document: 
+
+```
+curl -H "Content-Type: application/json" -X POST 'localhost:9200/accounts/person' -d '
+{
+    "user": "李四",
+    "title": "工程师",
+    "desc": "系统管理"
+}
+'
+```
 
 返回:
 
@@ -194,7 +212,15 @@ es版本6.2.3
 
 对accounts索引的person _type中id为1的document进行更新：
 
-`curl -H "Content-Type: application/json" -X PUT 'localhost:9200/accounts/person/1' -d '{"user":"张三他哥","title":"工程师","desc":"DBA"}'`
+```
+curl -H "Content-Type: application/json" -X PUT 'localhost:9200/accounts/person/1' -d '
+{
+    "user": "张三他哥",
+    "title": "工程师",
+    "desc": "DBA"
+}
+'
+```
 
 
 ```json

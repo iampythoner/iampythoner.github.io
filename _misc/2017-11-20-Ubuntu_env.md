@@ -290,6 +290,18 @@ elasticsearch
 # 测试
 curl http://localhost:9200/
 
+--启动遇到问题
+[o.e.b.BootstrapChecks    ] [4WpsNl1] bound or publishing to a non-loopback address, enforcing bootstrap checks
+ERROR: [1] bootstrap checks failed
+[1]: max virtual memory areas vm.max_map_count [65536] is too low, increase to at least [262144]
+
+解决方法：
+sudo vi /etc/sysctl.conf
+    # vm.max_map_count=65536
+    vm.max_map_count=655360
+sysctl -p
+
+
 --es外网访问
 vim config/elasticsearch.yml
     network.host: 0.0.0.0

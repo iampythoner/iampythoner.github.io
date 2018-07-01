@@ -10,14 +10,24 @@ categories: misc
 基本操作
 集群搭建
 
+有关分片shard（primary shard、replica shard）的介绍[https://www.jianshu.com/p/123bbfb2ad7f](https://www.jianshu.com/p/123bbfb2ad7f)
+
 
 es版本6.2.3
 
 #### Index相关操作
 
-查看所有的索引`curl -X GET 'http://192.168.199.232:9200/_cat/indices?v'`
+查看所有的索引`curl -X GET 'http://localhost:9200/_cat/indices?v'`
 
-查看每个index所有的type `curl '192.168.199.232:9200/_mapping?pretty=true'`
+```
+health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   weather  zaIxSytBQuOQrMQyhCQUtw   5   1          0            0      1.1kb          1.1kb
+green  open   .kibana  rh_Bbb40TRWFnTXi09fVEg   1   0          2            1     10.8kb         10.8kb
+yellow open   accounts vIH6BOKpQeCN8ZHZcz4iaQ   5   1          2            0     10.2kb         10.2kb
+```
+去掉querystring里的`v`则不会显示 `health status...`这些header
+
+查看每个index所有的type `curl 'localhost:9200/_mapping?pretty=true'`
 
 新建Index `curl -X PUT 'localhost:9200/weather'`
 返回
@@ -69,7 +79,7 @@ curl -H "Content-Type: application/json" -X PUT 'localhost:9200/accounts/person/
 }
 ```
 
-请求路径`/accounts/person/1` 中的 `1`是该记录的id，也可以不指定，如果不指定要改成POST请求(ES作者对RESTful风格理解之深！！！[stackoverflow](https://stackoverflow.com/questions/630453/put-vs-post-in-rest?page=1&tab=votes#tab-top)、[w3](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5))
+请求路径`/accounts/person/1` 中的 `1`是该记录的id，也可以不指定，如果不指定要改成POST请求(ES开发者对RESTful理解之深！！！[stackoverflow](https://stackoverflow.com/questions/630453/put-vs-post-in-rest?page=1&tab=votes#tab-top)、[w3](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5))
 
 使用POST创建一条Document: 
 

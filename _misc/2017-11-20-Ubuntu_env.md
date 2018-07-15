@@ -57,6 +57,11 @@ sudo apt-get install zlib1g-dev
 sudo apt-get install libbz2-dev
 sudo apt-get install libssl-dev
 sudo apt-get install libsqlite3-dev
+### Cent OS
+yum install readline readline-devel readline-static -y
+yum install bzip2-devel bzip2-libs -y
+yum install openssl openssl-devel openssl-static -y
+yum install sqlite-devel -y
 # 查看已经安装的所有的python版本
 pyenv versions
 # 查看当前使用的环境

@@ -212,3 +212,28 @@ rvm list known # 查看可以安装的所有版本
 
 rvm use 2.2.1 --default # 使用2.2.1版本 并设置为rvm默认ruby版本
 ```
+
+Bunlde 和 gem 使用
+
+```
+# 每个rvm添加的ruby环境默认内置了gem和bundle
+# gem负责管理三方库、bundle负责项目依赖管理(三方库版本一致等管理)
+
+# 更换当前gem使用的源
+gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
+# 查看当前源
+gem sources --list
+# 更新缓存
+gem sources -u
+# 安装三方库
+gem install xxx
+# 查看已经安装的三方库
+gem list
+
+
+# bundle 基本操作
+# 创建Gemfile,使用bundle进行依赖管理
+bundle init
+# 安装Gemfile里面的依赖库
+bundle install
+```

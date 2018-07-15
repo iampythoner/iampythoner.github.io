@@ -209,4 +209,6 @@ rvm current
 rvm use <version> # 切换
 rvm remove <version> # 移除
 rvm list known # 查看可以安装的所有版本
+
+rvm use 2.2.1 --default # 使用2.2.1版本 并设置为rvm默认ruby版本
 ```

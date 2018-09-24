@@ -216,6 +216,32 @@ source ~/.zshrc
 # 启动redis服务
 redis-server /usr/local/redis/conf/redis.conf
 
+-----redis 开机启动
+# https://blog.csdn.net/liulihui1988/article/details/78087495?utm_source=debugrun&utm_medium=referral
+cd /usr/local/redis/conf
+sudo cp redis.conf 6379.conf
+vim 6379.conf
+  daemonize yes
+cp /.../redis-4.0.4/utils/redis_init_script  /etc/init.d/redis
+vim /etc/init.d/redis
+  REDISPORT=6379
+  # EXEC=/usr/local/bin/redis-server
+  EXEC=/usr/local/redis/bin/redis-server
+  # CLIEXEC=/usr/local/bin/redis-cli
+  CLIEXEC=/usr/local/redis/bin/redis-cli
+
+  PIDFILE=/var/run/redis_${REDISPORT}.pid
+  # CONF="/etc/redis/${REDISPORT}.conf"
+  CONF="/usr/local/redis/conf/${REDISPORT}.conf"
+# can use
+sudo service redis start
+
+# https://blog.csdn.net/jlq_diligence/article/details/80680492
+sudo apt-get install sysv-rc-conf
+sudo sysv-rc-conf keepalived on
+
+sudo sysv-rc-conf redis on # 开机自启动
+
 
 -----mongo安装和配置
 这里使用的是ubuntu14.04 codename：trusty 安装mongo3.0的例子：

@@ -227,8 +227,21 @@ gem sources --list
 gem sources -u
 # 安装三方库
 gem install xxx
+# 从本机安装gem包
+gem install -l [gemname].gem
+# 安装三方库时指定版本
+gem install [gemname] --version=[ver]
+# 删除已经安装的指定包
+gem uninstall [gemname] --version=[ver]
+# 更新已经安装的所有gem包
+gem update
+# 更新指定的三方包
+gem update [gemname] --version=[ver]
+
 # 查看已经安装的三方库
 gem list
+# 更新 gem
+gem update --system
 
 
 # bundle 基本操作

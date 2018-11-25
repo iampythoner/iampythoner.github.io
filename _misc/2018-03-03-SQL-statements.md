@@ -485,19 +485,29 @@ MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有
 2.建立索引会占用磁盘空间的索引文件。
 
 索引分：单列索引(普通索引，唯一索引，主键索引)、组合索引、全文索引、空间索引。
-单列索引，即一个索引只包含单个列，一个表可以有多个单列索引，但这不是组合索引。
-组合索引，即一个索引包含多个列。
-全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，
+①单列索引，即一个索引只包含单个列，一个表可以有多个单列索引，但这不是组合索引。
+②组合索引，即一个索引包含多个列。
+③全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，
  介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，
  就能找到该字段所属的记录行，比如有"你是个大煞笔，二货 ..." 通过大煞笔，可能就可以找到该条记录。
  这里说的是可能，因为全文索引的使用涉及了很多细节。
-空间索引，空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，
+④空间索引，空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，
   GEOMETRY、POINT、LINESTRING、POLYGON。
   在创建空间索引时，使用SPATIAL关键字。
   要求，引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。
 
 
 创建索引
+--------- 语法
+CREATE TABLE table_name[col_name data type]
+[unique|fulltext][index|key][index_name](col_name[length])[asc|desc]
+1.unique|fulltext为可选参数，分别表示唯一索引、全文索引
+2.index和key为同义词，两者作用相同，用来指定创建索引
+3.col_name为需要创建索引的字段列，该列必须从数据表中该定义的多个列中选择
+4.index_name指定索引的名称，为可选参数，如果不指定，默认col_name为索引值
+5.length为可选参数，表示索引的长度，只有字符串类型的字段才能指定索引长度
+6.asc或desc指定升序或降序的索引值存储
+
 -- create index 索引名 on 表名(字段)
 create index i_name on students(name);
 
@@ -516,4 +526,59 @@ drop index indexName on tablename;
 
 --- 查看表的索引
 show index from students \G
+
+--------------------- 一些例子 表明just,现在有这些字段
+
+
+CREATE TABLE `just` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg_content` text NOT NULL,
+  `msg_desc` varchar(255) NOT NULL,
+  `receiver` int(11) NOT NULL,
+  `using_id` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`),
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
+
+
+
+----------------- 给receiver添加普通索引
+alter table just add index index_receiver(receiver);
+或
+alter table just add key index_receiver(receiver);
+或
+create index index_receiver on just(receiver);
+
+----------------- 给using_id添加唯一索引
+alter table just add unique [index] index_using_id(using_id);
+
+------------------ 给msg_content 添加全文索引
+alter table just add fulltext index_msg_content(msg_content);
+----使用
+select msg_content from just where match(msg_content) against('tomorrow');
+
+----------------- 添加一列geometry类型，为这个列添加空间索引
+alter table just  add loc geometry not null;  # 必须是not null的 否则创建索引不成功
+----补充数据
+update just set loc=geomfromtext('point(108.9498710632 34.2588125935)') where id=2;
+update just set loc=geomfromtext('point(108.9465236664 34.2598766768)') where id=1;
+----- 添加空间索引
+alter table just add SPATIAL INDEX index_loc(loc);
+
+
+------------------ 查看数据表
+CREATE TABLE `just` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg_content` text NOT NULL,
+  `msg_desc` varchar(255) DEFAULT '',
+  `receiver` int(11) NOT NULL,
+  `using_id` varchar(11) NOT NULL,
+  `loc` geometry NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_using_id` (`using_id`),
+  KEY `index_receiver` (`receiver`),
+  SPATIAL KEY `index_loc` (`loc`),
+  FULLTEXT KEY `index_msg_content` (`msg_content`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
+
+
 ```

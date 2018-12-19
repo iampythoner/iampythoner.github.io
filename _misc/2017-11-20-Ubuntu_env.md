@@ -235,6 +235,8 @@ vim /etc/init.d/redis
   CONF="/usr/local/redis/conf/${REDISPORT}.conf"
 # can use
 sudo service redis start
+# Failed to start redis.service: Unit redis.service not found.
+# 解决: sudo systemctl daemon-reload
 
 # https://blog.csdn.net/jlq_diligence/article/details/80680492
 sudo apt-get install sysv-rc-conf

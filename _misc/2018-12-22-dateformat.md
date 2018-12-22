@@ -6,8 +6,8 @@ date:   2018-12-22 07:34:39
 categories: misc
 ---
 
->UTC : Coordinated Universal  Time 协调的世界时间，是一种计时方式
->GMT : Greenwich Mean Time 格林尼治平时，零时区时间，实际等同于UTC
+>UTC : Coordinated Universal  Time 协调的世界时间，是一种计时方式<br/>
+>GMT : Greenwich Mean Time 格林尼治平时，零时区时间，实际等同于UTC<br/>
 >一般情况下，GMT 和 UTC 可以互换，但是实际上，GMT 是一个时区，而 UTC 是一个时间标准。
 
 ISO-8601是时间格式协议：包含以下内容
@@ -89,14 +89,14 @@ def get_default_timezone():
     return pytz.timezone(settings.TIME_ZONE)
 ```
 
-pytz存储了城市与offset的映射表，很方便地将城市名转为timezone
+pytz存储了城市与offset的映射表，很方便地将城市名转为timezone, 可以看到当城市名称改变之后，日志的时间就变化了。
 
 
 ###### 参考
-What is this date format? 2011-08-12T20:17:46.384Z [https://stackoverflow.com/questions/8405087/what-is-this-date-format-2011-08-12t201746-384z#answer-8405125](https://stackoverflow.com/questions/8405087/what-is-this-date-format-2011-08-12t201746-384z#answer-8405125)
-ISO_8601 on wiki [https://en.wikipedia.org/wiki/ISO_8601](https://en.wikipedia.org/wiki/ISO_8601)
-iso-8601-date-and-time-format [https://www.iso.org/iso-8601-date-and-time-format.html](https://www.iso.org/iso-8601-date-and-time-format.html)
-UTC 和ISO 8601时间格式的一些疑问 [https://segmentfault.com/q/1010000004333145](https://segmentfault.com/q/1010000004333145)
-python-dateutil [https://github.com/paxan/python-dateutil](https://github.com/paxan/python-dateutil)
-Date_format_by_country [https://en.wikipedia.org/wiki/Date_format_by_country](https://en.wikipedia.org/wiki/Date_format_by_country)
+What is this date format? 2011-08-12T20:17:46.384Z [https://stackoverflow.com/questions/8405087/what-is-this-date-format-2011-08-12t201746-384z#answer-8405125](https://stackoverflow.com/questions/8405087/what-is-this-date-format-2011-08-12t201746-384z#answer-8405125)<br/>
+ISO_8601 on wiki [https://en.wikipedia.org/wiki/ISO_8601](https://en.wikipedia.org/wiki/ISO_8601)<br/>
+iso-8601-date-and-time-format [https://www.iso.org/iso-8601-date-and-time-format.html](https://www.iso.org/iso-8601-date-and-time-format.html)<br/>
+UTC 和ISO 8601时间格式的一些疑问 [https://segmentfault.com/q/1010000004333145](https://segmentfault.com/q/1010000004333145)<br/>
+python-dateutil [https://github.com/paxan/python-dateutil](https://github.com/paxan/python-dateutil)<br/>
+Date_format_by_country [https://en.wikipedia.org/wiki/Date_format_by_country](https://en.wikipedia.org/wiki/Date_format_by_country)<br/>
 List of time zone abbreviations [https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations)

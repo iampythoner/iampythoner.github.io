@@ -39,7 +39,8 @@ supervisorctl start all
 
 #### 修改配置文件
 
-supervisorctl reload
+supervisorctl reload # 强制重新加载配置文件和重新启动program
+supervisorctl update # 加载配置文件，只更新受影响的程序
 
 
 ### 问题

@@ -1,7 +1,7 @@
 ---
 layout: cnblog_post
-title:  "rest_framework_source"
-permalink: '/misc/rest_framework_source'
+title:  "DRF-source"
+permalink: '/misc/DRF-source'
 date:   2018-11-20 07:34:39
 categories: misc
 ---

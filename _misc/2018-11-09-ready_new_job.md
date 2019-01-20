@@ -1,7 +1,7 @@
 ---
 layout: cnblog_post
-title:  "new"
-permalink: '/misc/new'
+title:  "ready_new_job"
+permalink: '/misc/ready_new_job'
 date:   2018-11-09 07:34:39
 categories: misc
 ---

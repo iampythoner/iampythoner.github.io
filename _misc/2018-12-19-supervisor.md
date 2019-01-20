@@ -166,6 +166,8 @@ supervisor的日志应该只记录程序启动、重启等相关的日志信息�
 
 #### supervisor timed_rotating_file_handler
 
+supervisor 替代品 circus [https://circus.readthedocs.io/en/latest/for-ops/configuration/](https://circus.readthedocs.io/en/latest/for-ops/configuration/)
+
 
 
 

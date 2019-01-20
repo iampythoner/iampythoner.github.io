@@ -377,7 +377,7 @@ vim config/kibana.yml
     server.host: "0.0.0.0"
 
 -----后续还要添加的
-supervisor安装及配置
+supervisor安装及配置 https://iampythoner.com/misc/supervisor
 
 -------------------不再使用的-----------------------
 ----安装virtualenv、virtualenvwrapper

@@ -116,7 +116,7 @@ sudo systemctl daemon-reload
 # test
 service supervisord start/stop
 # auto start
-sudo sysv-rc-conf redis on
+sudo sysv-rc-conf supervisord on
 ```
 
 

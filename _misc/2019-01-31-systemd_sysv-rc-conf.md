@@ -129,5 +129,10 @@ Warning: Journal has been rotated since unit was started. Log output is incomple
 
 
 
-参考：
-\[Systemd 教程，systemctl常用命令\][https://blog.csdn.net/weixin_37766296/article/details/80192633](https://blog.csdn.net/weixin_37766296/article/details/80192633)
+参考：<br/>
+\[Systemd 教程，systemctl常用命令\][https://blog.csdn.net/weixin_37766296/article/details/80192633](https://blog.csdn.net/weixin_37766296/article/details/80192633)<br/>
+\[linux chkconfig命令 开机启动 运行级别 service sysv-rc-conf\][https://blog.csdn.net/qq_16234613/article/details/53924545](https://blog.csdn.net/qq_16234613/article/details/53924545)<br/>
+\[Managing MySQL Server with systemd\][https://dev.mysql.com/doc/refman/5.7/en/using-systemd.html](https://dev.mysql.com/doc/refman/5.7/en/using-systemd.html)<br/>
+\[linux中target和service等unit（/usr/lib/systemd/system/或/lib/systemd/system/）\][https://blog.csdn.net/jackliu16/article/details/79026303](https://blog.csdn.net/jackliu16/article/details/79026303)<br/>
+\[linux常用文件位置实例说明之-/lib/systemd/system/目录\][https://blog.csdn.net/diyiday/article/details/79817905](https://blog.csdn.net/diyiday/article/details/79817905)<br/>
+\[Linux开机启动项详解\][https://blog.csdn.net/yejingtao703/article/details/80807871](https://blog.csdn.net/yejingtao703/article/details/80807871)

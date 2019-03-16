@@ -14,7 +14,7 @@ date: 2018-01-07 08:37:39
         for (let index = 0; index < components.length; index++) {
             var element = components[index];
             var es = element.split(':');
-            pydictString += "'" + es[0] + "': '" + es[1] + "'";
+            pydictString += "'" + es[0] + "': '" + es[1].trim() + "'";
             if (index != components.length - 1) {
                 pydictString += ', '
             }

@@ -94,17 +94,31 @@ https://www.ruby-lang.org/
 先翻个墙
 
 ```
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-
-zsh: command not found: gpg
-
 $ brew install gpg
+$ brew install gnupg
+$ brew upgrade gnupg
 
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+-------- 如果.zshrc、.bash_profile等shell配置中有如下内容，务必注释掉！！！！！！！！,否则导入的签名不会起作用
+# export SSL_CERT_FILE=$HOME/GlobalSignRootCA.pem
 
-gpg: directory '/Users/mike/.gnupg' created
-gpg: keybox '/Users/mike/.gnupg/pubring.kbx' created
-gpg: 从公钥服务器接收失败：Server indicated a failure
+$ gpg --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+
+gpg: key 105BD0E739499BDB: 5 个签名因密钥遗失而未被检查
+gpg: 密钥 105BD0E739499BDB：公钥 “Piotr Kuczynski <piotr.kuczynski@gmail.com>” 已导入
+gpg: key 3804BB82D39DC0E3: 105 个签名因密钥遗失而未被检查
+gpg: 密钥 3804BB82D39DC0E3：“Michal Papis (RVM signing) <mpapis@gmail.com>” 59 个新的签名
+gpg: 未找到任何绝对信任的密钥
+gpg: 处理的总数：2
+gpg:               已导入：1
+gpg:         新的签名：59
+
+
+---旧的：
+    $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+
+    gpg: directory '/Users/mike/.gnupg' created
+    gpg: keybox '/Users/mike/.gnupg/pubring.kbx' created
+    gpg: 从公钥服务器接收失败：Server indicated a failure
 
 
 $ curl -sSL https://rvm.io/mpapis.asc | gpg --import -
@@ -185,7 +199,7 @@ Error: homebrew/versions was deprecated. This tap is now empty as all its formul
 
 
 # 在github上找到了解决方法：https://github.com/rvm/rvm/issues/4303
-# 将rvm checkout为最新的稳定版
+# 将rvm checkout为最新的稳定版, 相当于
 rvm get head
 
 # 然后继续执行
@@ -208,7 +222,7 @@ rvm current
 
 rvm use <version> # 切换
 rvm remove <version> # 移除
-rvm list known # 查看可以安装的所有版本
+rvm list known # 查看可以安装的所有版本, 如果没有显示最新版本应先 rvm get head
 
 rvm use 2.2.1 --default # 使用2.2.1版本 并设置为rvm默认ruby版本
 ```

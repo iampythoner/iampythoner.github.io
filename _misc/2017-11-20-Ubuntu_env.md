@@ -379,7 +379,66 @@ vim config/kibana.yml
 -----后续还要添加的
 supervisor安装及配置 https://iampythoner.com/misc/supervisor
 
--------------------不再使用的-----------------------
+-----Ruby环境
+sudo apt-get install gnupg2
+# https://www.rvm.io/
+gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    gpg: directory '/home/mike/.gnupg' created
+    gpg: new configuration file '/home/mike/.gnupg/dirmngr.conf' created
+    gpg: new configuration file '/home/mike/.gnupg/gpg.conf' created
+    gpg: keybox '/home/mike/.gnupg/pubring.kbx' created
+    gpg: /home/mike/.gnupg/trustdb.gpg: trustdb created
+    gpg: key 39499BDB: public key "Piotr Kuczynski <piotr.kuczynski@gmail.com>" imported
+    gpg: key D39DC0E3: public key "Michal Papis (RVM signing) <mpapis@gmail.com>" imported
+    gpg: no ultimately trusted keys found
+    gpg: Total number processed: 2
+    gpg:               imported: 2
+\curl -sSL https://get.rvm.io | bash -s stable  # 很慢
+    Downloading https://github.com/rvm/rvm/archive/1.29.7.tar.gz
+    Downloading https://github.com/rvm/rvm/releases/download/1.29.7/1.29.7.tar.gz.asc
+    gpg: Signature made Fri 04 Jan 2019 06:01:48 AM CST using RSA key ID 39499BDB
+    gpg: Good signature from "Piotr Kuczynski <piotr.kuczynski@gmail.com>" [unknown]
+    gpg: WARNING: This key is not certified with a trusted signature!
+    gpg:          There is no indication that the signature belongs to the owner.
+    Primary key fingerprint: 7D2B AF1C F37B 13E2 069D  6956 105B D0E7 3949 9BDB
+    GPG verified '/home/mike/.rvm/archives/rvm-1.29.7.tgz'
+    Installing RVM to /home/mike/.rvm/
+        Adding rvm PATH line to /home/mike/.profile /home/mike/.mkshrc /home/mike/.bashrc /home/mike/.zshrc.
+        Adding rvm loading line to /home/mike/.profile /home/mike/.bash_profile /home/mike/.zlogin.
+    Installation of RVM in /home/mike/.rvm/ is almost complete:
+
+    * To start using RVM you need to run `source /home/mike/.rvm/scripts/rvm`
+        in all your open shell windows, in rare cases you need to reopen all shell windows.
+
+source ~/.zshrc
+which rvm
+
+rvm requirements # installs dependencies for building ruby
+    Checking requirements for ubuntu.
+    Installing requirements for ubuntu.
+    Updating system......
+    Installing required packages: gawk, autoconf, automake, bison, libgdbm-dev, libncurses5-dev, libtool, libyaml-dev, pkg-config, sqlite3.............
+    Requirements installation successful.
+rvm list known # 查看可以安装的所有版本
+rvm install 2.6
+rvm list # 查看安装的所有解释器
+rvm current # 查看当前使用的Ruby版本
+rvm use <version> # 切换 system/version
+rvm remove <version> # 移除
+rvm use 2.2.1 --default # 切换到2.2.1 并设置为default
+# gemset 在一个Ruby版本下创建多个gem环境
+rvm gemset create rails5_1
+rvm gemset use rails5_1 或 rvm 2.4.4@rails5_1 或 rvm use @rails5_1
+gem install rails -v 5.1
+rvm gemset list
+rvm gemset empty 2.4.4@rails5_1 # 清空 gemset 中的 gem
+rvm [--force] gemset delete <gemsetname># 删除gemset
+
+# 彻底删除 .rvm 目录，从而删除 rvm
+rvm implode
+
+
+---------------------不再使用的-----------------------
 ----安装virtualenv、virtualenvwrapper
 sudo pip3 install virtualenv
 sudo pip3 install virtualenvwrapper

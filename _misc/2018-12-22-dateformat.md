@@ -100,3 +100,86 @@ UTC 和ISO 8601时间格式的一些疑问 [https://segmentfault.com/q/101000000
 python-dateutil [https://github.com/paxan/python-dateutil](https://github.com/paxan/python-dateutil)<br/>
 Date_format_by_country [https://en.wikipedia.org/wiki/Date_format_by_country](https://en.wikipedia.org/wiki/Date_format_by_country)<br/>
 List of time zone abbreviations [https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations)
+
+
+#### Python 时间转换
+
+##### 基于当前的时区
+
+###### 快速将当前时间转为指定format
+
+```python
+s = time.strftime('%Y-%m-%d %H:%M:%S')# 默认会对time.localtime()时间进行转换，
+print(s) # 2019-04-17 16:53:20
+# 而localtime是时间戳转为当前时区的时间，
+# 而对于time.strftime()函数则是直接取了localtime返回的time.struct_time类型实例的属性
+```
+
+###### 快速将当前时间对应的GMT时间转为指定format
+
+```python
+s = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime()) # gmtime()返回GMT(UTC)时间对应的time.struct_time
+print(s) # 2019-04-17 08:53:20
+```
+
+###### 快速将format之后的时间转为时间戳
+
+```python
+struct_t = time.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S')
+print(struct_t) # time.struct_time(tm_year=2019, tm_mon=4, tm_mday=17, tm_hour=16, tm_min=33, tm_sec=20, tm_wday=2, tm_yday=107, tm_isdst=-1)
+ts = time.mktime(struct_t)
+print(ts) # 1555490000.0
+```
+
+##### 将某个时间戳转为某个时区format
+
+###### Python 2.x
+
+```python
+# Python2.x
+from datetime import datetime, date, timedelta, tzinfo
+class CST(tzinfo):
+
+    def utcoffset(self, dt):
+        return timedelta(hours=8) + self.dst(dt)
+
+    def dst(self, dt):
+        return timedelta(0) # DST is not in effect.
+
+    def tzname(self, dt):
+         return "CST"
+
+
+timestamp = 1555490000
+cst_tz = CST()
+s = datetime.fromtimestamp(timestamp, cst_tz).strftime('%Y-%m-%d %H:%M:%S')
+print(s) # 2019-04-17 17:33:20
+```
+
+###### Python 3.x
+
+```python
+from datetime import datetime, date, timedelta, timezone
+timestamp = 1555490000
+cst_tz = timezone(offset=timedelta(hours=8), name='CST')
+s = datetime.fromtimestamp(timestamp, cst_tz).strftime('%Y-%m-%d %H:%M:%S')
+print(s) # 2019-04-17 16:33:20
+```
+
+##### 将某个format后的时间转为时间戳
+
+###### Python 2.x
+
+```python
+d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo=CST())
+ts = time.mktime(d.timetuple())
+print(ts)
+```
+
+###### Python 3.x
+
+```python
+d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo=cst_tz)
+ts = d.timestamp()
+print(ts) # 1555490000.0
+```

@@ -173,12 +173,13 @@ print(s) # 2019-04-17 16:33:20
 ```python
 d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo=CST())
 ts = time.mktime(d.timetuple())
-print(ts)
+print(ts) # 1555490000.0
 ```
 
 ###### Python 3.x
 
 ```python
+cst_tz = timezone(offset=timedelta(hours=8), name='CST')
 d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo=cst_tz)
 ts = d.timestamp()
 print(ts) # 1555490000.0

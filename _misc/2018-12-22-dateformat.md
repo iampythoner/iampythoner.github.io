@@ -184,3 +184,57 @@ d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo
 ts = d.timestamp()
 print(ts) # 1555490000.0
 ```
+
+##### 将某个时区的datetime转为另一个时区的datetime
+###### 思路一：先转成时间戳再转成另一个时区的datetime
+
+```python
+import pytz
+us_east_tz = pytz.timezone('US/Eastern')
+
+ts = datetime.now().timestamp() # 1556180271.300264
+d = datetime.fromtimestamp(ts, us_east_tz) # 2019-04-25 04:17:51.300264-04:00
+```
+
+###### 思路二：使用时区时间差 `astimezone`
+
+```
+n = datetime.now() # datetime.datetime(2019, 4, 25, 16, 23, 50, 11222)
+nn = n.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 23, 50, 11222, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+
+###### 错误
+
+上述操作均有一个问题 对于没有指定时区的datetime, 会默认认为是当前时区的datetime, 如`datetime.now()`、`datetime.utcnow()`、`datetime(2019, 4, 25, 12, 23, 50, 11222)`等返回值，当进行进行时间戳计算或者astimezone计算另一个时区的时间都有问题。如下：
+
+```
+d = datetime.utcnow() # datetime.datetime(2019, 4, 25, 8, 43, 25, 773822)
+dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 24, 20, 43, 25, 773822, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+dd错误，原因是把d当成了当前时区时间，dd期望是`datetime.datetime(2019, 4, 25, 4, 43, 25, 773822, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)`
+
+```
+d = datetime.now() # datetime.datetime(2019, 4, 25, 16, 40, 21, 978010)
+dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 40, 21, 978010, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+dd 正确，now本来返回的就是当前时区的datetime
+
+###### 解决
+
+对于任何一个来源的datetime，尤其是自己使用datetime()构造方法创建的, 明确指定时区
+
+```
+d = datetime.utcnow().replace(tzinfo=timezone.utc) # datetime.datetime(2019, 4, 25, 8, 47, 31, 300696, tzinfo=datetime.timezone.utc) 
+dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 47, 31, 300696, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+
+```
+d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(timezone=timedelta(hours=8))
+# 或
+d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(timezone=pytz.timezone('Asia/Shanghai'))
+```
+
+
+
+
+

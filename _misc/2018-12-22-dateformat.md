@@ -186,6 +186,7 @@ print(ts) # 1555490000.0
 ```
 
 ##### 将某个时区的datetime转为另一个时区的datetime
+
 ###### 思路一：先转成时间戳再转成另一个时区的datetime
 
 ```python
@@ -205,13 +206,21 @@ nn = n.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 23, 50, 11222,
 
 ###### 错误
 
-上述操作均有一个问题 对于没有指定时区的datetime, 会默认认为是当前时区的datetime, 如`datetime.now()`、`datetime.utcnow()`、`datetime(2019, 4, 25, 12, 23, 50, 11222)`等返回值，当进行进行时间戳计算或者astimezone计算另一个时区的时间都有问题。如下：
+上述操作均有一个问题 对于没有指定时区的datetime, 会默认认为是当前时区的datetime, 如`datetime.now()`、`datetime.utcnow()`、`datetime.utcfromtimestamp(ts)`、`datetime(2019, 4, 25, 12, 23, 50, 11222)`等返回值，当进行进行时间戳计算或者astimezone计算另一个时区的时间都有问题。如下：
 
 ```
 d = datetime.utcnow() # datetime.datetime(2019, 4, 25, 8, 43, 25, 773822)
 dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 24, 20, 43, 25, 773822, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
 ```
 dd错误，原因是把d当成了当前时区时间，dd期望是`datetime.datetime(2019, 4, 25, 4, 43, 25, 773822, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)`
+
+```
+timestamp = 1555490000
+d = datetime.utcfromtimestamp(timestamp) # datetime.datetime(2019, 4, 17, 8, 33, 20)
+dd = d.astimezone(timezone(timedelta(hours=8))) # datetime.datetime(2019, 4, 17, 8, 33, 20, tzinfo=datetime.timezone(datetime.timedelta(0, 28800)))
+```
+
+dd错误，原因是把d当成了当前时区时间，dd期望是`datetime.datetime(2019, 4, 17, 16, 33, 20, tzinfo=datetime.timezone(datetime.timedelta(0, 28800)))`
 
 ```
 d = datetime.now() # datetime.datetime(2019, 4, 25, 16, 40, 21, 978010)
@@ -229,9 +238,9 @@ dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 47, 31, 300696
 ```
 
 ```
-d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(timezone=timedelta(hours=8))
+d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(tzinfo=timezone(timedelta(hours=8)))
 # 或
-d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(timezone=pytz.timezone('Asia/Shanghai'))
+d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(tzinfo=pytz.timezone('Asia/Shanghai'))
 ```
 
 

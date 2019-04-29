@@ -110,8 +110,7 @@ pip3 install --upgrade pip
 sudo pip3 install ipython
 
 ----安装mysql
-sudo apt install mysql-server
-设置mysql禁止开机自动启动
+https://iampythoner.com/misc/MySQL#ubuntuapt-get
 
 ----修改mysql初始密码
 sudo cat /etc/mysql/debian.cnf
@@ -161,6 +160,9 @@ sudo /etc/init.d/ssh stop
 sudo /etc/init.d/ssh start
 # 查看服务状态
 sudo /etc/init.d/ssh status
+
+-----supervisor
+supervisor安装及配置 https://iampythoner.com/misc/supervisor
 
 ----安装uwsgi
 # 官网http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html
@@ -375,9 +377,6 @@ bin/kibana
 --外网访问
 vim config/kibana.yml
     server.host: "0.0.0.0"
-
------后续还要添加的
-supervisor安装及配置 https://iampythoner.com/misc/supervisor
 
 -----Ruby环境
 sudo apt-get install gnupg2

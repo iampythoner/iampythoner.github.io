@@ -112,6 +112,17 @@ sudo pip3 install ipython
 ----安装mysql
 https://iampythoner.com/misc/MySQL#ubuntuapt-get
 
+vim /etc/mysql/mysql.conf.d/mysqld.cnf
+    bind-address 0.0.0.0
+sudo service mysql restart
+
+mysql -uroot -p
+    update mysql.user set host = '%' where mysql.user = 'root'
+    flush privileges;
+
+# 外网
+mysql -h host -uroot -p
+
 ----修改mysql初始密码
 sudo cat /etc/mysql/debian.cnf
 set password for 'root'@'localhost' = password('123456');

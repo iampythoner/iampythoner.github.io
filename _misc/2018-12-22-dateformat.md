@@ -100,3 +100,150 @@ UTC 和ISO 8601时间格式的一些疑问 [https://segmentfault.com/q/101000000
 python-dateutil [https://github.com/paxan/python-dateutil](https://github.com/paxan/python-dateutil)<br/>
 Date_format_by_country [https://en.wikipedia.org/wiki/Date_format_by_country](https://en.wikipedia.org/wiki/Date_format_by_country)<br/>
 List of time zone abbreviations [https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations)
+
+
+#### Python 时间转换
+
+##### 基于当前的时区
+
+###### 快速将当前时间转为指定format
+
+```python
+s = time.strftime('%Y-%m-%d %H:%M:%S')# 默认会对time.localtime()时间进行转换，
+print(s) # 2019-04-17 16:53:20
+# 而localtime是时间戳转为当前时区的时间，
+# 而对于time.strftime()函数则是直接取了localtime返回的time.struct_time类型实例的属性
+```
+
+###### 快速将当前时间对应的GMT时间转为指定format
+
+```python
+s = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime()) # gmtime()返回GMT(UTC)时间对应的time.struct_time
+print(s) # 2019-04-17 08:53:20
+```
+
+###### 快速将format之后的时间转为时间戳
+
+```python
+struct_t = time.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S')
+print(struct_t) # time.struct_time(tm_year=2019, tm_mon=4, tm_mday=17, tm_hour=16, tm_min=33, tm_sec=20, tm_wday=2, tm_yday=107, tm_isdst=-1)
+ts = time.mktime(struct_t)
+print(ts) # 1555490000.0
+```
+
+##### 将某个时间戳转为某个时区format
+
+###### Python 2.x
+
+```python
+# Python2.x
+from datetime import datetime, date, timedelta, tzinfo
+class CST(tzinfo):
+
+    def utcoffset(self, dt):
+        return timedelta(hours=8) + self.dst(dt)
+
+    def dst(self, dt):
+        return timedelta(0) # DST is not in effect.
+
+    def tzname(self, dt):
+         return "CST"
+
+
+timestamp = 1555490000
+cst_tz = CST()
+s = datetime.fromtimestamp(timestamp, cst_tz).strftime('%Y-%m-%d %H:%M:%S')
+print(s) # 2019-04-17 17:33:20
+```
+
+###### Python 3.x
+
+```python
+from datetime import datetime, date, timedelta, timezone
+timestamp = 1555490000
+cst_tz = timezone(offset=timedelta(hours=8), name='CST')
+s = datetime.fromtimestamp(timestamp, cst_tz).strftime('%Y-%m-%d %H:%M:%S')
+print(s) # 2019-04-17 16:33:20
+```
+
+##### 将某个format后的时间转为时间戳
+
+###### Python 2.x
+
+```python
+d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo=CST())
+ts = time.mktime(d.timetuple())
+print(ts) # 1555490000.0
+```
+
+###### Python 3.x
+
+```python
+cst_tz = timezone(offset=timedelta(hours=8), name='CST')
+d = datetime.strptime('2019-04-17 16:33:20', '%Y-%m-%d %H:%M:%S').replace(tzinfo=cst_tz)
+ts = d.timestamp()
+print(ts) # 1555490000.0
+```
+
+##### 将某个时区的datetime转为另一个时区的datetime
+
+###### 思路一：先转成时间戳再转成另一个时区的datetime
+
+```python
+import pytz
+us_east_tz = pytz.timezone('US/Eastern')
+
+ts = datetime.now().timestamp() # 1556180271.300264
+d = datetime.fromtimestamp(ts, us_east_tz) # 2019-04-25 04:17:51.300264-04:00
+```
+
+###### 思路二：使用时区时间差 `astimezone`
+
+```
+n = datetime.now() # datetime.datetime(2019, 4, 25, 16, 23, 50, 11222)
+nn = n.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 23, 50, 11222, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+
+###### 错误
+
+上述操作均有一个问题 对于没有指定时区的datetime, 会默认认为是当前时区的datetime, 如`datetime.now()`、`datetime.utcnow()`、`datetime.utcfromtimestamp(ts)`、`datetime(2019, 4, 25, 12, 23, 50, 11222)`等返回值，当进行进行时间戳计算或者astimezone计算另一个时区的时间都有问题。如下：
+
+```
+d = datetime.utcnow() # datetime.datetime(2019, 4, 25, 8, 43, 25, 773822)
+dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 24, 20, 43, 25, 773822, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+dd错误，原因是把d当成了当前时区时间，dd期望是`datetime.datetime(2019, 4, 25, 4, 43, 25, 773822, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)`
+
+```
+timestamp = 1555490000
+d = datetime.utcfromtimestamp(timestamp) # datetime.datetime(2019, 4, 17, 8, 33, 20)
+dd = d.astimezone(timezone(timedelta(hours=8))) # datetime.datetime(2019, 4, 17, 8, 33, 20, tzinfo=datetime.timezone(datetime.timedelta(0, 28800)))
+```
+
+dd错误，原因是把d当成了当前时区时间，dd期望是`datetime.datetime(2019, 4, 17, 16, 33, 20, tzinfo=datetime.timezone(datetime.timedelta(0, 28800)))`
+
+```
+d = datetime.now() # datetime.datetime(2019, 4, 25, 16, 40, 21, 978010)
+dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 40, 21, 978010, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+dd 正确，now本来返回的就是当前时区的datetime
+
+###### 解决
+
+对于任何一个来源的datetime，尤其是自己使用datetime()构造方法创建的, 明确指定时区
+
+```
+d = datetime.utcnow().replace(tzinfo=timezone.utc) # datetime.datetime(2019, 4, 25, 8, 47, 31, 300696, tzinfo=datetime.timezone.utc) 
+dd = d.astimezone(us_east_tz) # datetime.datetime(2019, 4, 25, 4, 47, 31, 300696, tzinfo=<DstTzInfo 'US/Eastern' EDT-1 day, 20:00:00 DST>)
+```
+
+```
+d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(tzinfo=timezone(timedelta(hours=8)))
+# 或
+d = datetime(2019, 4, 25, 12, 23, 50, 11222).replace(tzinfo=pytz.timezone('Asia/Shanghai'))
+```
+
+
+
+
+

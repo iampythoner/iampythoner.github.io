@@ -117,6 +117,10 @@ cat 1.txt | tr '[a-z]' '[A-Z]' # 将小写字母翻译为大写字母
 
 当前文件夹下的文件按照大小排序：
 ls -l | sort -nk 5 -r
+按照修改时间逆序：（mtime：modification time, ctime:status time, atime:access time）
+ls -l --time-style '+%Y-%m-%d %H:%M:%S' --time=mtime
+mac上没找到好的时间格式化方法，暂时使用：ls -lT
+可以使用gls(GNU ls, brew install coreutils): gls -l --time-style '+%Y%m%d %H:%M:%S'
 
 # 编码
 enca --list languages # 查看enca 支持的语言

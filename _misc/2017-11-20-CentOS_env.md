@@ -47,91 +47,47 @@ vim /etc/sudoers
 ----安装git
 sudo yum install git
 
-----安装zlib
-sudo yum install zlib zlib-devel -y
+---pyenv 和 pyenv-virtualenv
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+yum install -y git
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+exec "$SHELL"
 
-----安装openssl
-sudo yum install openssl-devel -y
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+exec "$SHELL"
 
-----编译安装Python3
-# 安装gcc编译器
-sudo yum install gcc
-# 安装依赖库zlib
-sudo yum install zlib zlib-devel -y
-# 下载Python3.6.3源码并解压
-cd ~/Documents/lib
-wget -nd https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
-tar -zxvf Python-3.6.3.tgz
-# cd Python3.6.3 开始编译安装
-./configure --enable-optimizations --enable-shared
-# 编译安装
-sudo make && sudo make install
-# 检查一下安装是否成功
-python3 -V
-pip3 -V
+# sohu源最近不能用了 去这里https://www.python.org/ftp/python/ 找对应版本下载 放到~/.pyenv/cache 下
 
-----更新pip3
-pip3 install --upgrade pip
+---- 安装开发工具包
+yum groupinstall "Development Tools" -y
 
-## 如果出现这个错误
-python3: error while loading shared libraries: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
-# 这样解决
-cd  /etc/ld.so.conf.d
-vim usr_local_lib.conf
-/usr/local/lib
-ldconfig
+----安装编译Python必要的包
+yum install zlib zlib-devel -y
+yum install bzip2-devel -y # WARNING: The Python bz2 extension was not compiled. Missing the bzip2 lib? 
+yum install openssl-devel -y
+yum install sqlite-devel -y
+yum install readline readline-devel readline-static -y
+yum install mysql-devel -y
 
-----安装virtualenv、virtualenvwrapper
-sudo pip3 install virtualenv
-sudo pip3 install virtualenvwrapper
-配置virtualenvwrapper环境, http://iampythoner.com/2017/10/virtualenv/#Linux_env
 
-----安装最新vim的准备
-# 移除现有的vim
-sudo yum remove vim -y
-# 安装编译依赖
-sudo yum install ncurses-devel -y
-# 如果失败，提示unknown host apt.sw.be，手工安装：
-# wget http://mirror.centos.org/centos/7/os/x86_64/Packages/ncurses-devel-5.9-13.20130511.el7.x86_64.rpm
-# yum install ncurses-devel-5.9-13.20130511.el7.x86_64.rpm
+# ModuleNotFoundError: No module named '_ctypes'
+# make: *** [install] Error 1
+yum install libffi-devel
 
-----编译最新版vim
-# 如果下载的是zip
-# unzip -q vim.zip -d vim
-# cd vim/vim-master/src
-# 如果用的git下载
-git clone https://github.com/vim/vim.git
-cd vim
-# 配置
-./configure --enable-multibyte --enable-pythoninterp=yes --enable-python3interp=yes --with-features=huge
-# 编译
-make CFLASS="-02 -D_FORTIFY_SOURCE=1"
-###### 如果遇到if_py_both.h:*: undefined reference to 'PyUnicodeUCS4_AsEncodedString'问题，可以在看一下这个文章：http://vim-dev.vim.narkive.com/3nRfeAJJ/vim-cannot-be-built-in-centos-7-due-to-if-py-both-h-undefined-reference-to-pyunicodeucs4
-# 安装
-sudo make install
 
-----------现在用spacevim了，就不再配置Vundle和YouCompleteMe了
-----配置Vundle
-sudo yum update
-sudo yum upgrade vim # 更新vim
-# clone vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-# 配置 vimrc（提供文件.vimrc 和 color主题文件夹）
-vim ~/.vimrc
-# 安装插件，进入vim之后
-:PluginInstall
+----------
+更新系统Python为Python3.7
+①卸掉原来的Python3
+②https://askubuntu.com/questions/865554/how-do-i-install-python-3-6-using-apt-get#answer-865569
+③安装pip: https://pip.pypa.io/en/stable/installing/
+----------
 
-----配置YouCompleteMe
-cd ~/.vim/bundle
-rm -rf YouCompleteMe
-git clone https://github.com/Valloric/YouCompleteMe
-cd YouCompleteMe
-git submodule update --init --recursive
-# 不要到clang官网下载clang，也不要自己安装cmake，用下面的命令一次安装gcc-c++编译器、cmake等
-sudo yum install automake gcc gcc-c++ kernel-devel cmake
-# Compiling YCM with semantic support for C-family languages
-sudo python3 install.py --clang-completer
-# 如果要安装所有语言的提示可以使用 ./install.py --all 前提是确保 xbuild, go, tsserver, node, npm, rustc, and cargo tools 都被安装，并且在PATH配置了
+
+
 
 ----mongo shell升级
 使用云端mongo数据库时，遇到过mongo shell版本过低登录不上的问题，可以参照这个给CentOS配置yum源，升级新版的mongo shell
@@ -212,4 +168,88 @@ sudo su
 FLUSH PRIVILEGES;
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('你的新密码');
 
+
+-------------------------------------------------------------不再使用
+----编译安装Python3
+# 安装gcc编译器
+sudo yum install gcc
+# 安装依赖库zlib
+sudo yum install zlib zlib-devel -y
+# 下载Python3.6.3源码并解压
+cd ~/Documents/lib
+wget -nd https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
+tar -zxvf Python-3.6.3.tgz
+# cd Python3.6.3 开始编译安装
+./configure --enable-optimizations --enable-shared
+# 编译安装
+sudo make && sudo make install
+# 检查一下安装是否成功
+python3 -V
+pip3 -V
+
+----更新pip3
+pip3 install --upgrade pip
+
+## 如果出现这个错误
+python3: error while loading shared libraries: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
+# 这样解决
+cd  /etc/ld.so.conf.d
+vim usr_local_lib.conf
+/usr/local/lib
+ldconfig
+
+----安装virtualenv、virtualenvwrapper
+sudo pip3 install virtualenv
+sudo pip3 install virtualenvwrapper
+配置virtualenvwrapper环境, http://iampythoner.com/2017/10/virtualenv/#Linux_env
+
+----安装最新vim的准备
+# 移除现有的vim
+sudo yum remove vim -y
+# 安装编译依赖
+sudo yum install ncurses-devel -y
+# 如果失败，提示unknown host apt.sw.be，手工安装：
+# wget http://mirror.centos.org/centos/7/os/x86_64/Packages/ncurses-devel-5.9-13.20130511.el7.x86_64.rpm
+# yum install ncurses-devel-5.9-13.20130511.el7.x86_64.rpm
+
+----编译最新版vim
+# 如果下载的是zip
+# unzip -q vim.zip -d vim
+# cd vim/vim-master/src
+# 如果用的git下载
+git clone https://github.com/vim/vim.git
+cd vim
+# 配置
+./configure --enable-multibyte --enable-pythoninterp=yes --enable-python3interp=yes --with-features=huge
+# 编译
+make CFLASS="-02 -D_FORTIFY_SOURCE=1"
+###### 如果遇到if_py_both.h:*: undefined reference to 'PyUnicodeUCS4_AsEncodedString'问题，可以在看一下这个文章：http://vim-dev.vim.narkive.com/3nRfeAJJ/vim-cannot-be-built-in-centos-7-due-to-if-py-both-h-undefined-reference-to-pyunicodeucs4
+# 安装
+sudo make install
+
+----------现在用spacevim了，就不再配置Vundle和YouCompleteMe了
+----配置Vundle
+sudo yum update
+sudo yum upgrade vim # 更新vim
+# clone vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# 配置 vimrc（提供文件.vimrc 和 color主题文件夹）
+vim ~/.vimrc
+# 安装插件，进入vim之后
+:PluginInstall
+
+----配置YouCompleteMe
+cd ~/.vim/bundle
+rm -rf YouCompleteMe
+git clone https://github.com/Valloric/YouCompleteMe
+cd YouCompleteMe
+git submodule update --init --recursive
+# 不要到clang官网下载clang，也不要自己安装cmake，用下面的命令一次安装gcc-c++编译器、cmake等
+sudo yum install automake gcc gcc-c++ kernel-devel cmake
+# Compiling YCM with semantic support for C-family languages
+sudo python3 install.py --clang-completer
+# 如果要安装所有语言的提示可以使用 ./install.py --all 前提是确保 xbuild, go, tsserver, node, npm, rustc, and cargo tools 都被安装，并且在PATH配置了
+
 ```
+
+

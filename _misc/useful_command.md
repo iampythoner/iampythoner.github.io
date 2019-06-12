@@ -67,6 +67,35 @@ nm-connection-editor
 查看指定协议、指定端口的使用情况 
 
 
+#### 文件压缩解压
+
+```
+# 安装7z
+sudo apt install p7zip-full -y
+# 安装unrar
+sudo apt install unrar-free -y
+
+# 解压文件
+# Extract file by using extension as reference
+case "$@" in
+    *.7z ) 7z x "$@" ;;
+    *.tar.bz2 ) tar xvjf "$@" ;;
+    *.bz2 ) bunzip2 "$@" ;;
+    *.deb ) ar vx "$@" ;;
+    *.tar.gz ) tar xvf "$@" ;;
+    *.gz ) gunzip "$@" ;;
+    *.tar ) tar xvf "$@" ;;
+    *.tbz2 ) tar xvjf "$@" ;;
+    *.tar.xz ) tar xvf "$@" ;;
+    *.tgz ) tar xvzf "$@" ;;
+    *.rar ) unrar x "$@" ;;
+    *.zip ) unzip "$@" ;;
+    *.Z ) uncompress "$@" ;;
+    * ) echo " Unsupported file format" ;;
+esac
+```
+
+
 #### 文本处理
 ```
 # mac 安装常用的GNU命令

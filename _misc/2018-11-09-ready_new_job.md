@@ -838,7 +838,7 @@ request.META 中的key
     '__CF_USER_TEXT_ENCODING': '0x1F5:0x19:0x34',
     'Apple_PubSub_Socket_Render': '/private/tmp/com.apple.launchd.WUHTOX8z5h/Render', 'LOGNAME': 'mike',
     'LC_CTYPE': 'zh_CN.UTF-8', 'XPC_SERVICE_NAME': '0', 'HOME': '/Users/mike', 'SHLVL': '1',
-    'PWD': '/Users/mike/Documents/xuetang_t/first_django', 'OLDPWD': '/Users/mike/Documents/xuetang_t/first_django',
+    'PWD': '/Users/mike/Documents/xx_pro/first_django', 'OLDPWD': '/Users/mike/Documents/xx_pro/first_django',
     'ZSH': '/Users/mike/.oh-my-zsh', 'PAGER': 'less', 'LESS': '-R', 'LSCOLORS': 'Gxfxcxdxbxegedabagacad',
     'ANDROID_HOME': '/Users/mike/Library/Android/sdk',
     'JAVA_HOME': '/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home',

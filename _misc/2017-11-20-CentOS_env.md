@@ -42,6 +42,14 @@ passwd mike
 vim /etc/sudoers
 # 在root    ALL=(ALL)   ALL下面添加一行 mike    ALL=(ALL)   ALL
 
+-----aliyun保持ssh长连接
+systemctl status sshd.service
+
+vim /etc/ssh/sshd_config
+    ClientAliveInterval 30
+    ClientAliveCountMax 86400
+service sshd restart
+
 -----------------------------mike用户进行剩下的操作
 
 ----安装git

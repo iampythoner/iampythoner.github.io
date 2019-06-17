@@ -97,11 +97,25 @@ esac
 
 
 #### 文本处理
+```
+# mac 安装常用的GNU命令
+brew install coreutil # 这些命令安装在了 /usr/local/Cellar/coreutils/8.29/bin
+
+# mac 安装GNU sed 和awk
+brew install gnu-sed
+brew install gawk
+
+# 董伟明写的sed和awk一些用法
+http://dongweiming.github.io/sed_and_awk
+```
+
 
 ```
 awk 'BEGIN{print ""}{print $2}' 1.txt # 换行后输出每行
 awk 'BEGIN{print "["}{printf("'\''%s'\'',\n", $2)}END{print "]"}' 1.txt # 将$2放到Python list中
 awk 'BEGIN{printf("[")}{printf("'\''%s'\'', ", $2)}END{printf("]")}' 1.txt # 将$2放到Python list中, 不换行
+
+ps aux | grep gunicorn | grep -v grep | awk 'NR>1{system("kill -HUP "$2)}' # awk 执行命令
 
 # awk 正则
 awk '{match($0, /^a{3}$/, match_result); if (match_result[0]) print $0}' a.txt #正则匹配行内容为'aaa', 输出该行，可简写为下面

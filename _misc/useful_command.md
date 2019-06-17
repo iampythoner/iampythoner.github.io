@@ -167,6 +167,10 @@ wget -nd # 与-x 相反，不保留文件夹结构
 wget https://www.gitignore.io/api/ruby -O .gitignore # wget -大O 输出到文件
 wget https://www.gitignore.io/api/ruby  -P ~/Documents -O .gitignore # -P 输出到文件夹prefix , 默认是.
 
+
+wget -qO- ifconfig.me | cat # -O -, equivlalent to -O /dev/stdout, means dump the web page to a file named /dev/stdout 相当于下面 # https://superuser.com/questions/321240/how-do-you-redirect-wget-response-to-standard-out/321241#321241
+curl ifconfig.me
+
 nc -l 8080 # 开启TCP/UDP连接
 
 

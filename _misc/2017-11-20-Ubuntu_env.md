@@ -62,6 +62,27 @@ yum install readline readline-devel readline-static -y
 yum install bzip2-devel bzip2-libs -y
 yum install openssl openssl-devel openssl-static -y
 yum install sqlite-devel -y
+
+### ubuntu 14.04 安装3.7 OpenSSL lib问题
+https://github.com/pyenv/pyenv/wiki/Common-build-problems
+https://help.dreamhost.com/hc/en-us/articles/360001435926-Installing-OpenSSL-locally-under-your-username
+wget https://www.openssl.org/source/openssl-1.1.1b.tar.gz
+tar zxvf openssl-1.1.1b.tar.gz
+cd openssl-1.1.1b
+./config --prefix=/home/username/openssl --openssldir=/home/username/openssl no-ssl2
+make 
+make install
+# global # Python项目运行的时候也加上这几个环境变量，除非不设置config的prefix(目前没试去掉prefix)
+export PATH=$HOME/openssl/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/openssl/lib
+export LC_ALL="en_US.UTF-8"
+export LDFLAGS="-L/home/username/openssl/lib -Wl,-rpath,/home/username/openssl/lib"
+# local # 安装Python的时候一定填上，即使设置了global
+CFLAGS=-I$HOME/openssl/include \
+LDFLAGS=-L$HOME/openssl/lib \
+SSH=$HOME/openssl
+pyenv install -v 3.7.3
+
 # 查看已经安装的所有的python版本
 pyenv versions
 # 查看当前使用的环境

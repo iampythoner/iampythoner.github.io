@@ -63,6 +63,13 @@ yum install bzip2-devel bzip2-libs -y
 yum install openssl openssl-devel openssl-static -y
 yum install sqlite-devel -y
 
+### ubuntu No module named '_ctypes' 问题
+ from _ctypes import Union, Structure, Array
+ModuleNotFoundError: No module named '_ctypes'
+make: *** [install] Error 1
+# 解决
+sudo apt-get install libffi-dev
+
 ### ubuntu 14.04 安装3.7 OpenSSL lib问题
 https://github.com/pyenv/pyenv/wiki/Common-build-problems
 https://help.dreamhost.com/hc/en-us/articles/360001435926-Installing-OpenSSL-locally-under-your-username
@@ -82,6 +89,40 @@ CFLAGS=-I$HOME/openssl/include \
 LDFLAGS=-L$HOME/openssl/lib \
 SSH=$HOME/openssl
 pyenv install -v 3.7.3
+
+### 上面是动态加载openssl库(将openssl安装到了指定目录，用时加载)的方式，如果想直接覆盖(其实没有覆盖，只是搜索path在前)系统默认的openssl库可以这样
+wget https://www.openssl.org/source/openssl-1.1.1b.tar.gz
+tar -xJf openssl-1.1.1b.tar.gz
+cd openssl-1.1.1b
+./config
+sudo make && sudo make install
+  # 测试
+  openssl version
+  # 错误
+  openssl: error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory
+  # 排查
+  which openssl # /usr/local/bin/openssl
+  ldd /usr/local/bin/openssl # 发现是因为找不到库的位置造成的
+  # 解决
+  sudo cp libssl.so.1.1 /usr/lib
+  sudo cp libcrypto.so.1.1 /usr/lib
+  cd /usr/lib
+  sudo ln -s libssl.so.1.1 libssl.so
+  sudo ln -s libcrypto.so.1.1 libcrypto.so
+
+openssl version # OpenSSL 1.1.1b  26 Feb 2019
+
+cd python3.7.3source
+./configure --enable-optimizations
+sudo make
+sudo make install
+
+# 问题 
+Fatal Python error: _PySys_BeginInit: can't initialize sys module
+# 解决
+./configure # 去掉 --enable-optimizations
+# 升级gcc能不能解决，暂时没试
+
 
 # 查看已经安装的所有的python版本
 pyenv versions

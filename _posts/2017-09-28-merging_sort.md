@@ -9,7 +9,7 @@ categories: 数据结构
 可将n个元素的序列看成是n个子序列，则每个子序列的长度为1，然后两两归并，得到ceil(n/2)个长度为2的子序列(如果n为奇数则有一个只有一个元素的子序列)；<br/>
 再两两归并...，<br/>
 如此重复，直至得到一个长度为n的有序序列。这种排序方法称为2-路归并排序。如下图所示：
-<img src="http://7vim0m.com1.z0.glb.clouddn.com/dsmerging_sort.png" width="500" alt="2路归并排序"/>
+<img src="http://qiniu.storage.mikezh.com/dsmerging_sort.png" width="500" alt="2路归并排序"/>
 
 2-路归并中的核心操作是将两个有序列合并为一个有序序列，它的算法如下所示：
 

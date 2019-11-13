@@ -20,7 +20,7 @@ categories: 数据结构
 ②左指针向右搜索，发现一个比pivot_value大的值，则将这个值放到右边，也就是放到右指针刚才腾出的空槽位，这时左指针停止向后搜索；<br/>
 重复上面的搜索过程，直到左右指针相撞，这个位置就是pivot_value要放入的位置，同时也已经保证左边的值小于pivot_value，而右边的值大于pivot_value。<br/>
 这个过程如下图所示：
-<img src="http://7vim0m.com1.z0.glb.clouddn.com/dssort_quick_partition.jpg" width="600" alt="once_partition"/>
+<img src="http://qiniu.storage.mikezh.com/dssort_quick_partition.jpg" width="600" alt="once_partition"/>
 它的实现算法为：
 
 ```cpp

@@ -17,7 +17,7 @@ categories: 数据结构
 首先将该序列中的记录分成5个子序列{a[0], a[5]}, {a[1], a[6]}, ..., {a[4], a[9]},分别对每个子序列进行直接插入排序，得到一趟排序结果；<br/>
 然后进行第二趟希尔排序，即分别对这三个子序列{a[0], a[3], a[6], a[9]}, {a[1], a[4], a[7]} 和{a[2], a[5], a[8]}进行直接插入排序，得到第二趟排序结果；<br/>
 最后对整个序列进行一趟直接插入排序。至此排序完成。<br/>
-<img src="http://7vim0m.com1.z0.glb.clouddn.com/dssort_shell.png" width="500" alt="shell_sort"/>
+<img src="http://qiniu.storage.mikezh.com/dssort_shell.png" width="500" alt="shell_sort"/>
 对照直接插入排序写出一趟希尔排序的算法：
 
 ```cpp

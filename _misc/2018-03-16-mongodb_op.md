@@ -278,7 +278,7 @@ $last 根据资源文档的排序获取最后一个文档数据, 和first功能�
 ```
 
 #### 管道
-<img src="http://7vim0m.com1.z0.glb.clouddn.com/mongo/pipe.png" width="400" alt="管道"/>
+<img src="http://qiniu.storage.mikezh.com/mongo/pipe.png" width="400" alt="管道"/>
 
 ```
 # MongoDB 管道可以配合aggregate方法使用，可以实现过条件分组过滤数据的功能
@@ -374,9 +374,9 @@ db.t1.find({name:'test10000'}).explain('executionStats')
 db.t1.find({name:'test10000'}).explain('executionStats')
 ```
 
-<img src="http://7vim0m.com1.z0.glb.clouddn.com/mongo/index1.png" width="400" alt="no index"/>
+<img src="http://qiniu.storage.mikezh.com/mongo/index1.png" width="400" alt="no index"/>
 
-<img src="http://7vim0m.com1.z0.glb.clouddn.com/mongo/index2.png?fdf=df" width="400" alt="index"/>
+<img src="http://qiniu.storage.mikezh.com/mongo/index2.png?fdf=df" width="400" alt="index"/>
 
 
 ```

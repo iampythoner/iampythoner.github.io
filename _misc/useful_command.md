@@ -1,7 +1,7 @@
 ---
 permalink: /misc/useful_command
 layout: cnblog_post
-title:  '非常有用的命令'
+title:  'useful_command'
 date:   2017-10-22 06:34:39
 categories: misc
 ---

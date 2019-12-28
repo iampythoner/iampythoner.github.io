@@ -79,6 +79,29 @@ export PATH=$GOPATH/bin:$PATH
 
 ### Ruby
 
+20191228更新，下面的不用看了：
+
+```
+https://www.rvm.io/
+
+用gpg命令就行，不要用gpg2, brew install gpg即可
+
+导入公钥如果遇到这个问题：
+gpg: keyserver receive failed: No route to host
+解决： https://github.com/rvm/rvm/issues/4215#issuecomment-435221616
+这样rvm就安装完了
+(如果使用了zsh, 在.zshrc添加这两行就可以, 实际上安装会创建很多sh的rc文件，如果不想保留删除即可)
+
+###################################### RVM
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+#export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.rvm/bin:$PATH"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+-> 去看rvm的使用吧
+```
+
 ```
 如何快速正确的安装 Ruby, Rails 运行环境
 https://ruby-china.org/wiki/install_ruby_guide/
@@ -154,6 +177,7 @@ Installation of RVM in /Users/mike/.rvm/ is almost complete:
     in all your open shell windows, in rare cases you need to reopen all shell windows.
 ```
 
+rvm使用
 
 ```
 # 查看当前rvm版本

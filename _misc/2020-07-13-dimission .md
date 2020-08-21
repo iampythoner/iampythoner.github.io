@@ -1,8 +1,10 @@
 ---
 layout: cnblog_post
 title: dimission
+permalink: '/misc/dimission'
 date: 2020-07-13 08:37:39
 show: false
+categories: misc
 ---
 
 技术清单：

@@ -576,3 +576,27 @@ E36B85CC 84991F19 7575D828 470A92AB
 —— END LICENSE ——
 ```
 
+
+
+2020-07-13 折腾起来：
+
+新装了ubuntu 16.04 server版，
+
+装sshd
+
+```
+sudo apt install openssh-server
+```
+
+设置时区
+
+```
+sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+sudo apt install ntpdate
+sudo timedatectl set-timezone "Asia/Shanghai"
+timedatectl # 查看
+cat /etc/timezone # 查看
+```
+
+
+

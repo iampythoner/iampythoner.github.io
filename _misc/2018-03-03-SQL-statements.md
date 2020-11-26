@@ -13,6 +13,8 @@ categories: misc
 -- sudo service mysql start/stop/restart/status
 
 ------------------ 数据库相关的
+-- 查看数据库支持的引擎
+show engines;
 -- 查看数据库
 show databases;
 -- 使用数据库
@@ -43,6 +45,9 @@ show tables;
 desc 表名;
 --- 查看创建表的语句
 show create table 表名;
+-- 例子
+create database db_name charset utf8mb4 collate utf8mb4_general_ci;
+create database db_name character set utf8mb4 collate utf8mb4_general_ci;
 --- 创建表
 CREATE TABLE `students` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -55,18 +60,34 @@ CREATE TABLE `students` (
 )
 
 --- 删除表
-drop table students;
+drop table [IF EXISTS] 表名1,表名2...;
 
 --- 修改表
+-- 修改表名
+alter table 表名 rename [to] 新表名;
 -- 添加字段
 -- alter table 表名 add 列名 类型;
 alter table students add birthday datetime;
+-- 添加字段为第一列（第一个字段）
+alter table students add birthday datetime FIRST;
+-- 在存在的某个字段后添加字段
+alter table students add birthday datetime AFTER name;
 -- 修改字段，但是不重命名
 alter table students modify birthday int;
 -- 修改字段，并且重命名
 alter table students change birthday birth bigint not null;
 -- 删除字段
 alter table students drop birthday;
+-- 更改表的引擎
+alter table students EBGINE=MyISAM;
+-- 删除外键约束 (约束可以认为是表的一种组成单位，类似列)
+alter table students drop foreign key xxx;
+
+A表-->foreign key --> B表, 想要删除这两个表：
+可以先将A表的foreign key删除，然后再删除表
+
+-- 查看表的自增值
+SELECT auto_increment FROM information_schema.tables where table_schema="数据库名" and table_name='表名';
 
 ------------------表的数据操作,基本的增删改查
 -- 查询(retrieve)
